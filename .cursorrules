@@ -1,0 +1,50 @@
+# Cursor Rules for Harous Netherite Shulkers Minecraft Mod
+
+## Project Overview
+This is a Minecraft Fabric mod that adds Netherite Shulker Boxes to the game. The mod follows Fabric's architecture and conventions.
+
+## Versions
+- This is a Mod for Minecraft 1.21.4
+- It uses Fabric 0.119.3+1.21.4
+- It uses Yarn minecraft mappings
+
+## Mod behaviour
+- The goal is to add a new Shulker box variant called "Netherite Shulker Box"
+- Netherite Shulker Boxes should behave the same way as normal shulker boxes:
+    - they can be placed on the ground
+    - they have inventory size of a single chest
+    - they can be placed into world using dispenser & and turned back into an item using a piston
+    - they can be colored using dyes into all 16 color variants
+    - etc.
+- In addition, Netherite Shulker Boxes should:
+    - be immune to lava in item form (same as other netherite items)
+    - have higher blast resistence (should survive creeper explosion)
+- Use same model/textures as regular shulkerboxes
+- This mod should work both in single player and multiplayer (on server)
+- To create a new Netherite Shulker box a player should combine regular "Shulker Box", "Netherite Ingot" & "Netherite Upgrade" smithing template in a Smithing table
+    - It should be possible to use colored regular shulker boxes as a base for the Netherite Shulker box
+- Netherite Shulkerbox variants should appear next to regular Shulkerboxes in the creative inventory menu
+- Should include data generation files
+
+
+## Changing code
+- When making changes to code makes sure to delete imports that are no longer used
+- Avoid changes to depedency version (e.g. we should always target Java 21, we should always target Minecraft 1.21.4, we should always use yarn mappings, etc.)
+- When you need to run more complex scripts and powershell is not enough, prefer using Node.js over Python
+
+## Fabric documentation
+- Items: https://docs.fabricmc.net/develop/items/first-item
+- Blocks: https://docs.fabricmc.net/develop/blocks/first-block
+- Block entities: https://docs.fabricmc.net/develop/blocks/block-entities
+- States: https://docs.fabricmc.net/develop/blocks/blockstates
+- Entities: https://docs.fabricmc.net/develop/blocks/block-entities
+- Data generation: https://docs.fabricmc.net/develop/data-generation/setup
+- Codecs: https://docs.fabricmc.net/develop/codecs
+- Events: https://docs.fabricmc.net/develop/events
+
+## Thid party source code
+- Source code for Fabric API for Minecraft 1.21.4 is located here in the "third-party\fabric-1.21.4" folder
+
+## About old code
+- One of the most common issues when generating code for Minecraft mod's is that most code out there is for different verisons of Minecraft than we are targetting. When using existing code as reference, use only code you can be sure if for Minecraft 1.21.4.
+- When using the "Identifier" class, prefer the "Identifier.of" method to create new idnetifiers.
