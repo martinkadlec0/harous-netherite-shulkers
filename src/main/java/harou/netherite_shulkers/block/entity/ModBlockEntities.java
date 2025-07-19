@@ -2,6 +2,7 @@ package harou.netherite_shulkers.block.entity;
 
 import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.block.ModBlocks;
+import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
@@ -21,7 +22,7 @@ public class ModBlockEntities {
 			(pos, state) -> {
 				Block block = state.getBlock();
 				DyeColor color = null;
-				if (block instanceof net.minecraft.block.ShulkerBoxBlock shulker) {
+				if (block instanceof NetheriteShulkerBoxBlock shulker) {
 					color = shulker.getColor();
 				}
 				return new NetheriteShulkerBoxBlockEntity(color, pos, state);

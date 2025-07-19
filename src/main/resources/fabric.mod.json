@@ -18,6 +18,9 @@
 		"main": [
 			"harou.netherite_shulkers.HarousNetheriteShulkers"
 		],
+		"client": [
+			"harou.netherite_shulkers.HarousNetheriteShulkersClient"
+		],
 		"fabric-datagen": [
 			"harou.netherite_shulkers.HarousNetheriteShulkersDataGenerator"
 		]

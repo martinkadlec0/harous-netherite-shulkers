@@ -82,7 +82,6 @@ public class ModBlocks {
 			.suffocates(SHULKER_BOX_SUFFOCATES_PREDICATE)
 			.blockVision(SHULKER_BOX_SUFFOCATES_PREDICATE)
 			.pistonBehavior(PistonBehavior.DESTROY);
-			
 	}
 
 	public static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {

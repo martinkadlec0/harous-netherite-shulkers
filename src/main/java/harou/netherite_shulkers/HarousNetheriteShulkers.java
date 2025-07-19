@@ -3,6 +3,7 @@ package harou.netherite_shulkers;
 import harou.netherite_shulkers.block.ModBlocks;
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
 import harou.netherite_shulkers.item.ModItems;
+import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import harou.netherite_shulkers.recipe.NetheriteShulkerBoxRecipe;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -42,7 +43,7 @@ public class HarousNetheriteShulkers implements ModInitializer {
 			);
 			// Add colored variants
 			for (DyeColor color : DyeColor.values()) {
-				entries.add(ModItems.getColoredNetheriteShulkerBoxItem(color));
+				entries.add(NetheriteShulkerBoxItem.get(color));
 			}
 		});
 
@@ -50,7 +51,7 @@ public class HarousNetheriteShulkers implements ModInitializer {
 		BlockPlacementDispenserBehavior shulkerBehavior = new BlockPlacementDispenserBehavior();
 		DispenserBlock.registerBehavior(ModItems.NETHERITE_SHULKER_BOX, shulkerBehavior);
 		for (DyeColor color : DyeColor.values()) {
-			DispenserBlock.registerBehavior(ModItems.getColoredNetheriteShulkerBoxItem(color), shulkerBehavior);
+			DispenserBlock.registerBehavior(NetheriteShulkerBoxItem.get(color), shulkerBehavior);
 		}
 
 		LOGGER.info("Harou's Netherite Shulkers mod initialized!");
