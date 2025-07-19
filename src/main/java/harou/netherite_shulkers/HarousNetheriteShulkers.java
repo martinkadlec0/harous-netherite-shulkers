@@ -4,7 +4,6 @@ import harou.netherite_shulkers.block.ModBlocks;
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
 import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
-import harou.netherite_shulkers.recipe.NetheriteShulkerBoxRecipe;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Blocks;
@@ -31,9 +30,6 @@ public class HarousNetheriteShulkers implements ModInitializer {
 		ModBlockEntities.initialize();
 		ModBlocks.initialize();
 		ModItems.initialize();
-
-		// Register recipes
-		NetheriteShulkerBoxRecipe.register();
 
 		// Add Netherite Shulker Boxes to the creative inventory tab after vanilla shulker boxes
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(entries -> {

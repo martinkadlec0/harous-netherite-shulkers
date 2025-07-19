@@ -1,10 +1,12 @@
 package harou.netherite_shulkers.data;
 
 import harou.netherite_shulkers.block.ModBlocks;
+import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.util.DyeColor;
 
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -24,22 +26,11 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
     public void generate() {
         // Generate loot tables for all netherite shulker boxes
         addDrop(ModBlocks.NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.WHITE_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.ORANGE_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.MAGENTA_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.LIGHT_BLUE_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.YELLOW_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.LIME_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.PINK_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.GRAY_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.LIGHT_GRAY_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.CYAN_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.PURPLE_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.BLUE_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.BROWN_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.GREEN_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.RED_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
-        addDrop(ModBlocks.BLACK_NETHERITE_SHULKER_BOX, this::createShulkerBoxDrop);
+        
+        // Add all colored variants using the static get method
+        for (DyeColor color : DyeColor.values()) {
+            addDrop(NetheriteShulkerBoxBlock.get(color), this::createShulkerBoxDrop);
+        }
     }
 
     private LootTable.Builder createShulkerBoxDrop(Block block) {

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "minecraft:container",
+                "minecraft:container_loot",
+                "minecraft:custom_name",
+                "minecraft:lock"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "harous-netherite-shulkers:yellow_netherite_shulker_box"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
