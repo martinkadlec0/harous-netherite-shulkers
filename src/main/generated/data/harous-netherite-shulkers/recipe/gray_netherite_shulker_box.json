@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#harous-netherite-shulkers:netherite_shulker_boxes",
+    "minecraft:gray_dye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "harous-netherite-shulkers:gray_netherite_shulker_box"
+  }
+}

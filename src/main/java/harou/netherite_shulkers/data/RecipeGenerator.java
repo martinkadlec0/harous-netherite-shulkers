@@ -6,8 +6,10 @@ import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipe.RecipeExporter;
-
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.DyeColor;
 
@@ -26,11 +28,24 @@ public class RecipeGenerator extends FabricRecipeProvider {
                 HarousNetheriteShulkers.LOGGER.info("Generating Netherite Shulker Box recipes...");
                 
                 // Generate base netherite shulker box recipe (from regular shulker box)
-                offerNetheriteUpgradeRecipe(Items.SHULKER_BOX, net.minecraft.recipe.book.RecipeCategory.MISC, ModItems.NETHERITE_SHULKER_BOX);
+                offerNetheriteUpgradeRecipe(Items.SHULKER_BOX, RecipeCategory.MISC, ModItems.NETHERITE_SHULKER_BOX);
 
                 // Generate colored netherite shulker box recipes
                 for (DyeColor color : DyeColor.values()) {
-                    offerNetheriteUpgradeRecipe(getVanillaShulkerBox(color), net.minecraft.recipe.book.RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
+                    offerNetheriteUpgradeRecipe(getVanillaShulkerBox(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
+                }
+                
+                // Generate color conversion recipes for netherite shulker boxes
+                // One recipe per color that accepts any netherite shulker box + dye
+                for (DyeColor targetColor : DyeColor.values()) {
+                    Item targetShulker = NetheriteShulkerBoxItem.get(targetColor);
+                    DyeItem dye = DyeItem.byColor(targetColor);
+                    
+                    createShapeless(RecipeCategory.MISC, targetShulker)
+                        .input(ingredientFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES)) // Any netherite shulker box
+                        .input(dye)
+                        .criterion("has_netherite_shulker_box", conditionsFromItem(ModItems.NETHERITE_SHULKER_BOX))
+                        .offerTo(exporter);
                 }
                 
                 HarousNetheriteShulkers.LOGGER.info("Netherite Shulker Box recipes generated successfully!");
@@ -38,7 +53,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
         };
     }
 
-    private static net.minecraft.item.Item getVanillaShulkerBox(DyeColor color) {
+    private static Item getVanillaShulkerBox(DyeColor color) {
         return switch (color) {
             case WHITE -> Items.WHITE_SHULKER_BOX;
             case ORANGE -> Items.ORANGE_SHULKER_BOX;
@@ -58,7 +73,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
             case BLACK -> Items.BLACK_SHULKER_BOX;
         };
     }
-
+    
     @Override
     public String getName() {
         return "Netherite Shulker Box Recipes";
