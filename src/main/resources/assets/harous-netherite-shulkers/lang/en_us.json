@@ -1,5 +1,4 @@
 {
-  "container.netheriteShulkerBox": "Netherite Shulker Box",
   "block.harous-netherite-shulkers.netherite_shulker_box": "Netherite Shulker Box",
   "block.harous-netherite-shulkers.white_netherite_shulker_box": "White Netherite Shulker Box",
   "block.harous-netherite-shulkers.orange_netherite_shulker_box": "Orange Netherite Shulker Box",
@@ -16,5 +15,7 @@
   "block.harous-netherite-shulkers.brown_netherite_shulker_box": "Brown Netherite Shulker Box",
   "block.harous-netherite-shulkers.green_netherite_shulker_box": "Green Netherite Shulker Box",
   "block.harous-netherite-shulkers.red_netherite_shulker_box": "Red Netherite Shulker Box",
-  "block.harous-netherite-shulkers.black_netherite_shulker_box": "Black Netherite Shulker Box"
+  "block.harous-netherite-shulkers.black_netherite_shulker_box": "Black Netherite Shulker Box",
+  "container.netheriteShulkerBox": "Netherite Shulker Box",
+  "tag.item.harous-netherite-shulkers.netherite_shulker_boxes": "Netherite Shulker Boxes"
 } 
