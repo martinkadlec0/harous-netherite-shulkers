@@ -1,10 +1,10 @@
 {
   "model": {
     "type": "minecraft:special",
-    "base": "harous-netherite-shulkers:item/black_netherite_shulker_box",
+    "base": "minecraft:item/black_shulker_box",
     "model": {
       "type": "minecraft:shulker_box",
-      "texture": "minecraft:shulker_black"
+      "texture": "harous-netherite-shulkers:netherite/shulker_black"
     }
   }
 } 

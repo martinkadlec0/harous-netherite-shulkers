@@ -1,12 +1,8 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_transmute",
   "category": "misc",
-  "ingredients": [
-    "#harous-netherite-shulkers:netherite_shulker_boxes",
-    "minecraft:gray_dye"
-  ],
-  "result": {
-    "count": 1,
-    "id": "harous-netherite-shulkers:gray_netherite_shulker_box"
-  }
+  "group": "netherite_shulker_box_dye",
+  "input": "#harous-netherite-shulkers:netherite_shulker_boxes",
+  "material": "minecraft:gray_dye",
+  "result": "harous-netherite-shulkers:gray_netherite_shulker_box"
 }

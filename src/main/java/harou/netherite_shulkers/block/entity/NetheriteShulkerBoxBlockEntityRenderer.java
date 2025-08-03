@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -36,9 +35,9 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 		DyeColor dyeColor = shulkerBoxBlockEntity.getColor();
 		SpriteIdentifier spriteIdentifier;
 		if (dyeColor == null) {
-			spriteIdentifier = TexturedRenderLayers.SHULKER_TEXTURE_ID;
+			spriteIdentifier = ModTexturedRenderLayers.NETHERITE_SHULKER_TEXTURE_ID;
 		} else {
-			spriteIdentifier = TexturedRenderLayers.getShulkerBoxTextureId(dyeColor);
+			spriteIdentifier = ModTexturedRenderLayers.COLORED_NETHERITE_SHULKER_BOXES_TEXTURES.get(dyeColor);
 		}
 
 		float g = shulkerBoxBlockEntity.getAnimationProgress(f);

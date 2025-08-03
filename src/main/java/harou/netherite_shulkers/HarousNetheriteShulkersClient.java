@@ -3,6 +3,7 @@ package harou.netherite_shulkers;
 import harou.netherite_shulkers.block.ModBlocks;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
+import harou.netherite_shulkers.block.entity.ModTexturedRenderLayers;
 import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRenderer;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxModelRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -19,7 +20,7 @@ public class HarousNetheriteShulkersClient implements ClientModInitializer {
             NetheriteShulkerBoxBlockEntityRenderer::new
         );
 
-        // Register special model renderers for all Netherite Shulker Box blocks
+        registerTexturedRenderLayers();
         registerSpecialModelRenderers();
     }
 
@@ -37,5 +38,13 @@ public class HarousNetheriteShulkersClient implements ClientModInitializer {
                 new NetheriteShulkerBoxModelRenderer.Unbaked(color)
             );
         }
+    }
+
+    public void registerTexturedRenderLayers() {
+		ModTexturedRenderLayers.registerMaterialDefaultSprite(HarousNetheriteShulkers.MOD_ID);
+        ModTexturedRenderLayers.registerMaterialColoringSprites(HarousNetheriteShulkers.MOD_ID);
+
+        HarousNetheriteShulkers.LOGGER.info("> " + ModTexturedRenderLayers.NETHERITE_SHULKER_TEXTURE_ID.toString());
+        HarousNetheriteShulkers.LOGGER.info("> " + ModTexturedRenderLayers.COLORED_NETHERITE_SHULKER_BOXES_TEXTURES.toString());
     }
 } 

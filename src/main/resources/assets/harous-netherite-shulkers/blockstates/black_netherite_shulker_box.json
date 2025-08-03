@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/black_shulker_box"
+      "model": "harous-netherite-shulkers:block/black_netherite_shulker_box"
     }
   }
 } 

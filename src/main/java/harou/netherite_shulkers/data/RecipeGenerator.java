@@ -6,9 +6,11 @@ import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.TransmuteRecipeJsonBuilder;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.DyeColor;
@@ -35,17 +37,20 @@ public class RecipeGenerator extends FabricRecipeProvider {
                     offerNetheriteUpgradeRecipe(getVanillaShulkerBox(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
                 }
                 
-                // Generate color conversion recipes for netherite shulker boxes
-                // One recipe per color that accepts any netherite shulker box + dye
-                for (DyeColor targetColor : DyeColor.values()) {
-                    Item targetShulker = NetheriteShulkerBoxItem.get(targetColor);
-                    DyeItem dye = DyeItem.byColor(targetColor);
-                    
-                    createShapeless(RecipeCategory.MISC, targetShulker)
-                        .input(ingredientFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES)) // Any netherite shulker box
-                        .input(dye)
-                        .criterion("has_netherite_shulker_box", conditionsFromItem(ModItems.NETHERITE_SHULKER_BOX))
-                        .offerTo(exporter);
+                // Generate color conversion recipes for netherite shulker boxes using crafting_transmute
+                Ingredient ingredient = ingredientFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES);
+        
+                for (DyeColor dyeColor : DyeColor.values()) {
+                    Item targetShulker = NetheriteShulkerBoxItem.get(dyeColor);
+                    TransmuteRecipeJsonBuilder.create(
+                        RecipeCategory.DECORATIONS,
+                        ingredient,
+                        Ingredient.ofItem(DyeItem.byColor(dyeColor)),
+                        targetShulker.asItem()
+                    )
+                    .group("netherite_shulker_box_dye")
+                    .criterion("has_netherite_shulker_box", conditionsFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES))
+                    .offerTo(exporter);
                 }
                 
                 HarousNetheriteShulkers.LOGGER.info("Netherite Shulker Box recipes generated successfully!");
