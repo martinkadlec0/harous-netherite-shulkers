@@ -3,9 +3,9 @@
 	"id": "harous-netherite-shulkers",
 	"version": "${version}",
 	"name": "Harou's Netherite Shulkers",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Reinforce your shulker boxes with netherite!",
 	"authors": [
-		"Me!"
+		"BSHarou"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
