@@ -43,8 +43,5 @@ public class HarousNetheriteShulkersClient implements ClientModInitializer {
     public void registerTexturedRenderLayers() {
 		ModTexturedRenderLayers.registerMaterialDefaultSprite(HarousNetheriteShulkers.MOD_ID);
         ModTexturedRenderLayers.registerMaterialColoringSprites(HarousNetheriteShulkers.MOD_ID);
-
-        HarousNetheriteShulkers.LOGGER.info("> " + ModTexturedRenderLayers.NETHERITE_SHULKER_TEXTURE_ID.toString());
-        HarousNetheriteShulkers.LOGGER.info("> " + ModTexturedRenderLayers.COLORED_NETHERITE_SHULKER_BOXES_TEXTURES.toString());
     }
 } 
