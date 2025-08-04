@@ -29,8 +29,8 @@
 		"harous-netherite-shulkers.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.9",
-		"minecraft": "1.21.4",
+		"fabricloader": ">=0.16.14",
+		"minecraft": "1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
