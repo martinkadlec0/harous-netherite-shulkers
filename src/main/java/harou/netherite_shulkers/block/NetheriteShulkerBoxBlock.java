@@ -14,9 +14,9 @@ import java.util.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.FacingBlock;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -24,20 +24,14 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -48,26 +42,22 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class NetheriteShulkerBoxBlock extends BlockWithEntity {
-	public static MapCodec<NetheriteShulkerBoxBlock> CODEC = RecordCodecBuilder.mapCodec(
+public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
+	public static MapCodec<ShulkerBoxBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(DyeColor.CODEC.optionalFieldOf("color").forGetter(block -> Optional.ofNullable(block.color)), createSettingsCodec())
 			.apply(instance, (color, settings) -> new NetheriteShulkerBoxBlock((DyeColor)color.orElse(null), settings))
 	);
 	public static final Map<Direction, VoxelShape> SHAPES_BY_DIRECTION = VoxelShapes.createFacingShapeMap(Block.createCuboidZShape(16.0, 0.0, 1.0));
 	public static final EnumProperty<Direction> FACING = FacingBlock.FACING;
 	public static final Identifier CONTENTS_DYNAMIC_DROP_ID = Identifier.ofVanilla("contents");
-	@Nullable
-	public DyeColor color;
-
+	
 	@Override
-	public MapCodec<NetheriteShulkerBoxBlock> getCodec() {
-		return CODEC;
+	public MapCodec<ShulkerBoxBlock> getCodec() {
+		return NetheriteShulkerBoxBlock.CODEC;
 	}
 
 	public NetheriteShulkerBoxBlock(@Nullable DyeColor color, Settings settings) {
-		super(settings);
-		this.color = color;
-		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.UP));
+		super(color, settings);
 	}
 
 	@Override
@@ -104,16 +94,6 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return this.getDefaultState().with(FACING, ctx.getSide());
-	}
-
-	@Override
-	protected void appendProperties(Builder<Block, BlockState> builder) {
-		builder.add(FACING);
-	}
-
-	@Override
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
@@ -146,11 +126,6 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 	}
 
 	@Override
-	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-		ItemScatterer.onStateReplaced(state, world, pos);
-	}
-
-	@Override
 	protected VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
 		return world.getBlockEntity(pos) instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity && !netheriteShulkerBoxBlockEntity.suffocates()
 			? (VoxelShape)SHAPES_BY_DIRECTION.get(((Direction)state.get(FACING)).getOpposite())
@@ -162,21 +137,6 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 		return world.getBlockEntity(pos) instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity
 			? VoxelShapes.cuboid(netheriteShulkerBoxBlockEntity.getBoundingBox(state))
 			: VoxelShapes.fullCube();
-	}
-
-	@Override
-	protected boolean isTransparent(BlockState state) {
-		return false;
-	}
-
-	@Override
-	protected boolean hasComparatorOutput(BlockState state) {
-		return true;
-	}
-
-	@Override
-	protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
 	}
 
 	public static Block get(@Nullable DyeColor dyeColor) {
@@ -204,22 +164,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 		}
 	}
 
-	@Nullable
-	public DyeColor getColor() {
-		return this.color;
-	}
-
 	public static ItemStack getItemStack(@Nullable DyeColor color) {
 		return new ItemStack(get(color));
-	}
-
-	@Override
-	protected BlockState rotate(BlockState state, BlockRotation rotation) {
-		return state.with(FACING, rotation.rotate(state.get(FACING)));
-	}
-
-	@Override
-	protected BlockState mirror(BlockState state, BlockMirror mirror) {
-		return state.rotate(mirror.getRotation(state.get(FACING)));
 	}
 }
