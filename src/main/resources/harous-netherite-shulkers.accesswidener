@@ -3,7 +3,7 @@ accessWidener v2 named
 accessible field net/minecraft/block/entity/BlockEntity type Lnet/minecraft/block/entity/BlockEntityType;
 mutable field net/minecraft/block/entity/BlockEntity type Lnet/minecraft/block/entity/BlockEntityType;
 
-accessible field net/minecraft/block/ShulkerBoxBlock color Lnet/minecraft/util/DyeColor; 
-mutable field net/minecraft/block/ShulkerBoxBlock color Lnet/minecraft/util/DyeColor; 
+accessible field net/minecraft/block/ShulkerBoxBlock color Lnet/minecraft/util/DyeColor;
+mutable field net/minecraft/block/ShulkerBoxBlock color Lnet/minecraft/util/DyeColor;
 
 mutable field net/minecraft/block/ShulkerBoxBlock CODEC Lcom/mojang/serialization/MapCodec;
