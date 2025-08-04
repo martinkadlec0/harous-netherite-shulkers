@@ -1,44 +1,50 @@
 package harou.netherite_shulkers.item;
 
-import harou.netherite_shulkers.HarousNetheriteShulkers;
-import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRenderer;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import harou.netherite_shulkers.HarousNetheriteShulkers;
+import harou.netherite_shulkers.block.entity.ModTexturedRenderLayers;
+import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRenderer;
+
+import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRenderer {
 	private final NetheriteShulkerBoxBlockEntityRenderer blockEntityRenderer;
 	private final float openness;
-	private final Direction orientation;
+	private final Direction facing;
 	private final SpriteIdentifier textureId;
 
 	public NetheriteShulkerBoxModelRenderer(NetheriteShulkerBoxBlockEntityRenderer blockEntityRenderer, float openness, Direction facing, SpriteIdentifier textureId) {
 		this.blockEntityRenderer = blockEntityRenderer;
 		this.openness = openness;
-		this.orientation = facing;
+		this.facing = facing;
 		this.textureId = textureId;
 	}
 
 	@Override
-	public void render(
-		ModelTransformationMode modelTransformationMode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint
-	) {
-		this.blockEntityRenderer.render(matrices, vertexConsumers, light, overlay, this.orientation, this.openness, this.textureId);
+	public void render(ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
+		this.blockEntityRenderer.render(matrices, vertexConsumers, light, overlay, this.facing, this.openness, this.textureId);
+	}
+
+	@Override
+	public void collectVertices(Set<Vector3f> vertices) {
+		this.blockEntityRenderer.collectVertices(this.facing, this.openness, vertices);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -53,11 +59,11 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 		);
 
 		public Unbaked() {
-			this(Identifier.of(HarousNetheriteShulkers.MOD_ID, "netherite_shulker"), 0.0F, Direction.UP);
+			this(Identifier.of(HarousNetheriteShulkers.MOD_ID, "shulker"), 0.0F, Direction.UP);
 		}
 
 		public Unbaked(DyeColor color) {
-			this(TexturedRenderLayers.createShulkerId(color), 0.0F, Direction.UP);
+			this(Identifier.of(HarousNetheriteShulkers.MOD_ID, "shulker_" + color.getId()), 0.0F, Direction.UP);
 		}
 
 		@Override
@@ -67,8 +73,10 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 
 		@Override
 		public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
+			HarousNetheriteShulkers.LOGGER.info("> Baking: " + this.texture);
 			return new NetheriteShulkerBoxModelRenderer(
-				new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, TexturedRenderLayers.createShulkerBoxTextureId(this.texture)
+				new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.map(this.texture)
+				// new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, TexturedRenderLayers.SHULKER_SPRITE_MAPPER.map(this.texture)
 			);
 		}
 	}

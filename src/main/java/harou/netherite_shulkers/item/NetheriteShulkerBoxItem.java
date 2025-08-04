@@ -7,7 +7,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 
 public class NetheriteShulkerBoxItem extends BlockItem {
@@ -43,9 +42,4 @@ public class NetheriteShulkerBoxItem extends BlockItem {
 			};
 		}
 	}
-
-    @Override
-    public boolean hasGlint(ItemStack stack) {
-        return true; // Netherite items have enchantment glint
-    }
 } 

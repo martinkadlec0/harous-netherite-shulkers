@@ -4,5 +4,7 @@
   "group": "netherite_shulker_box_dye",
   "input": "#harous-netherite-shulkers:netherite_shulker_boxes",
   "material": "minecraft:white_dye",
-  "result": "harous-netherite-shulkers:white_netherite_shulker_box"
+  "result": {
+    "id": "harous-netherite-shulkers:white_netherite_shulker_box"
+  }
 }

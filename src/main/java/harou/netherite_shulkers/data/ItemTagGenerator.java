@@ -28,10 +28,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         HarousNetheriteShulkers.LOGGER.info("Generating item tags for Netherite Shulker Boxes...");
         
         // Add all netherite shulker boxes to the shulker_boxes tag
-        var shulkerBoxes = getOrCreateTagBuilder(ConventionalItemTags.SHULKER_BOXES);
+        var shulkerBoxes = valueLookupBuilder(ConventionalItemTags.SHULKER_BOXES);
         
         // Create custom tag for netherite shulker boxes
-        var netheriteShulkerBoxes = getOrCreateTagBuilder(NETHERITE_SHULKER_BOXES);
+        var netheriteShulkerBoxes = valueLookupBuilder(NETHERITE_SHULKER_BOXES);
         
         // Add base netherite shulker box (no color)
         shulkerBoxes.add(ModItems.NETHERITE_SHULKER_BOX);

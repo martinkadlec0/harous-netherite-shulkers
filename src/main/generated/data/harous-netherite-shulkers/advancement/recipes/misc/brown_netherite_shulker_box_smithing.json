@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:brown_netherite_shulker_box_smithing"
+        "recipe": "harous-netherite-shulkers:brown_netherite_shulker_box_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:brown_netherite_shulker_box_smithing"
+      "harous-netherite-shulkers:brown_netherite_shulker_box_smithing"
     ]
   }
 }

@@ -18,7 +18,7 @@ public class ModBlockEntities {
 	
 	public static final BlockEntityType<NetheriteShulkerBoxBlockEntity> NETHERITE_SHULKER_BOX = register(
 		"netherite_shulker_box",
-		FabricBlockEntityTypeBuilder.create(
+		FabricBlockEntityTypeBuilder.<NetheriteShulkerBoxBlockEntity>create(
 			(pos, state) -> {
 				Block block = state.getBlock();
 				DyeColor color = null;

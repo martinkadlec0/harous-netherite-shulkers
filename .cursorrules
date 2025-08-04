@@ -4,9 +4,7 @@
 This is a Minecraft Fabric mod that adds Netherite Shulker Boxes to the game. The mod follows Fabric's architecture and conventions.
 
 ## Versions
-- This is a Mod for Minecraft 1.21.4
-- It uses Fabric 0.119.3+1.21.4
-- It uses Yarn minecraft mappings
+- Use Java/Minecraft/Fabric/Fabric API version based on `gradle.properties` file
 
 ## Mod behaviour
 - The goal is to add a new Shulker box variant called "Netherite Shulker Box"
@@ -19,17 +17,15 @@ This is a Minecraft Fabric mod that adds Netherite Shulker Boxes to the game. Th
 - In addition, Netherite Shulker Boxes should:
     - be immune to lava in item form (same as other netherite items)
     - have higher blast resistence (should survive creeper explosion)
-- Use same model/textures as regular shulkerboxes
 - This mod should work both in single player and multiplayer (on server)
 - To create a new Netherite Shulker box a player should combine regular "Shulker Box", "Netherite Ingot" & "Netherite Upgrade" smithing template in a Smithing table
     - It should be possible to use colored regular shulker boxes as a base for the Netherite Shulker box
-- Netherite Shulkerbox variants should appear next to regular Shulkerboxes in the creative inventory menu
+- Netherite Shulker Box variants should appear next to regular Shulker Boxes in the creative inventory menu
 - Should include data generation files
-
 
 ## Changing code
 - When making changes to code makes sure to delete imports that are no longer used
-- Avoid changes to depedency version (e.g. we should always target Java 21, we should always target Minecraft 1.21.4, we should always use yarn mappings, etc.)
+- Avoid changes to depedency versions defined in `gradle.properties` file
 - When you need to run more complex scripts and powershell is not enough, prefer using Node.js over Python
 
 ## Fabric documentation
@@ -44,7 +40,8 @@ This is a Minecraft Fabric mod that adds Netherite Shulker Boxes to the game. Th
 
 ## Thid party source code
 - Source code for Fabric API for Minecraft 1.21.4 is located here in the "third-party\fabric-1.21.4" folder
+- Source code for Fabric API for Minecraft 1.21.8 is located here in the "third-party\fabric-1.21.8" folder
 
 ## About old code
-- One of the most common issues when generating code for Minecraft mod's is that most code out there is for different verisons of Minecraft than we are targetting. When using existing code as reference, use only code you can be sure if for Minecraft 1.21.4.
+- One of the most common issues when generating code for Minecraft mod's is that most code out there is for different verisons of Minecraft than we are targetting. When using existing code as reference, use only code you can be sure is for Minecraft version defined in `gradle.properties` file.
 - When using the "Identifier" class, prefer the "Identifier.of" method to create new idnetifiers.

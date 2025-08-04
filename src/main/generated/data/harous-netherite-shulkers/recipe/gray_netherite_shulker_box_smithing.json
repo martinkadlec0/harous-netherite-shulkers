@@ -3,7 +3,6 @@
   "addition": "#minecraft:netherite_tool_materials",
   "base": "minecraft:gray_shulker_box",
   "result": {
-    "count": 1,
     "id": "harous-netherite-shulkers:gray_netherite_shulker_box"
   },
   "template": "minecraft:netherite_upgrade_smithing_template"
