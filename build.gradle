@@ -25,6 +25,12 @@ repositories {
 	maven {
 		url "https://maven.misterpemodder.com/libs-release"
 	}
+
+	// Easy Shulker Boxes
+	maven {
+		name = "Fuzs Mod Resources"
+		url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+	}
 }
 
 fabricApi {
@@ -44,6 +50,10 @@ dependencies {
 	
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+
+	// Easy Shulker Boxes
+	modApi "fuzs.puzzleslib:puzzleslib-fabric:${project.puzzleslib_version}"
+	modApi "fuzs.iteminteractions:iteminteractions-fabric:${project.iteminteractions_version}"
 }
 
 processResources {

@@ -4,6 +4,7 @@ import harou.netherite_shulkers.data.BlockTagGenerator;
 import harou.netherite_shulkers.data.ItemTagGenerator;
 import harou.netherite_shulkers.data.LootTableGenerator;
 import harou.netherite_shulkers.data.RecipeGenerator;
+import harou.netherite_shulkers.data.EasyShulkerBoxesGenerator;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -15,5 +16,6 @@ public class HarousNetheriteShulkersDataGenerator implements DataGeneratorEntryp
 		pack.addProvider(LootTableGenerator::new);
 		pack.addProvider(BlockTagGenerator::new);
 		pack.addProvider(ItemTagGenerator::new);
+		pack.addProvider(EasyShulkerBoxesGenerator::new);
 	}
 }

@@ -73,10 +73,8 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 
 		@Override
 		public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
-			HarousNetheriteShulkers.LOGGER.info("> Baking: " + this.texture);
 			return new NetheriteShulkerBoxModelRenderer(
 				new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.map(this.texture)
-				// new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, TexturedRenderLayers.SHULKER_SPRITE_MAPPER.map(this.texture)
 			);
 		}
 	}
