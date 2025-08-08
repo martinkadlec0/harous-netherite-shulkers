@@ -23,7 +23,7 @@ repositories {
 
 	// Shulker Box Tooltip
 	maven {
-		url "https://maven.misterpemodder.com/libs-release"
+		url = "https://maven.misterpemodder.com/libs-release"
 	}
 
 	// Easy Shulker Boxes
