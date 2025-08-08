@@ -9,7 +9,8 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/harous-netherite-shulkers",
-		"sources": "https://github.com/martinkadlec0/harous-netherite-shulkers"
+		"sources": "https://github.com/martinkadlec0/harous-netherite-shulkers",
+		"issues": "https://github.com/martinkadlec0/harous-netherite-shulkers/issues"
 	},
 	"license": "MIT",
 	"icon": "assets/harous-netherite-shulkers/icon.png",
@@ -34,7 +35,7 @@
 	"accessWidener": "harous-netherite-shulkers.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.16.14",
-		"minecraft": "1.21.8",
+		"minecraft": ">=1.21.6 <=1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
