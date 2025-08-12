@@ -2,7 +2,6 @@ package harou.netherite_shulkers.block.entity;
 
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 
-import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
@@ -19,7 +18,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<NetheriteShulkerBoxBlockEntity> {
@@ -53,25 +51,15 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 		MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Direction facing, float openness, SpriteIdentifier textureId
 	) {
 		matrices.push();
-		this.setTransforms(matrices, facing, openness);
-		VertexConsumer vertexConsumer = textureId.getVertexConsumer(vertexConsumers, this.model::getLayer);
-		this.model.render(matrices, vertexConsumer, light, overlay);
-		matrices.pop();
-	}
-
-	private void setTransforms(MatrixStack matrices, Direction facing, float openness) {
 		matrices.translate(0.5F, 0.5F, 0.5F);
 		matrices.scale(0.9995F, 0.9995F, 0.9995F);
 		matrices.multiply(facing.getRotationQuaternion());
 		matrices.scale(1.0F, -1.0F, -1.0F);
 		matrices.translate(0.0F, -1.0F, 0.0F);
 		this.model.animateLid(openness);
-	}
-
-	public void collectVertices(Direction facing, float openness, Set<Vector3f> vertices) {
-		MatrixStack matrixStack = new MatrixStack();
-		this.setTransforms(matrixStack, facing, openness);
-		this.model.getRootPart().collectVertices(matrixStack, vertices);
+		VertexConsumer vertexConsumer = textureId.getVertexConsumer(vertexConsumers, this.model::getLayer);
+		this.model.render(matrices, vertexConsumer, light, overlay);
+		matrices.pop();
 	}
 
 	@Environment(EnvType.CLIENT)

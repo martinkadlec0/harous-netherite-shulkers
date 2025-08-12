@@ -14,12 +14,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.collection.DefaultedList;
@@ -199,23 +199,23 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 	}
 
 	@Override
-	protected void readData(ReadView view) {
-		super.readData(view);
-		this.readInventoryNbt(view);
+	protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+		super.readNbt(nbt, registries);
+		this.readInventoryNbt(nbt, registries);
 	}
 
 	@Override
-	protected void writeData(WriteView view) {
-		super.writeData(view);
-		if (!this.writeLootTable(view)) {
-			Inventories.writeData(view, this.inventory, false);
+	protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+		super.writeNbt(nbt, registries);
+		if (!this.writeLootTable(nbt)) {
+			Inventories.writeNbt(nbt, this.inventory, false, registries);
 		}
 	}
 
-	public void readInventoryNbt(ReadView readView) {
+	public void readInventoryNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
 		this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-		if (!this.readLootTable(readView)) {
-			Inventories.readData(readView, this.inventory);
+		if (!this.readLootTable(nbt)) {
+			Inventories.readNbt(nbt, this.inventory, registries);
 		}
 	}
 

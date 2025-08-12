@@ -12,7 +12,6 @@ import fuzs.iteminteractions.api.v1.DyeBackedColor;
 import fuzs.iteminteractions.api.v1.data.AbstractItemContentsProvider;
 import fuzs.iteminteractions.api.v1.provider.ItemContentsProvider;
 import fuzs.iteminteractions.api.v1.provider.impl.ContainerProvider;
-import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 
 import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
@@ -20,7 +19,7 @@ import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 public class EasyShulkerBoxesGenerator extends AbstractItemContentsProvider {
     
     public EasyShulkerBoxesGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(new DataProviderContext("easyshulkerboxes", output, registriesFuture));
+        super(new EasyShulkerBoxesDataProviderContext("easyshulkerboxes", output, registriesFuture));
     }
 
     @Override

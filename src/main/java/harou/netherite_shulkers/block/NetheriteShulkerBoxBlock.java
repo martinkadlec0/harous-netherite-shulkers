@@ -26,6 +26,7 @@ import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.EnumProperty;
@@ -74,9 +75,9 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 	@Override
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (world instanceof ServerWorld serverWorld
-			&& world.getBlockEntity(pos) instanceof NetheriteShulkerBoxBlockEntity shulkerBoxBlockEntity
-			&& canOpen(state, world, pos, shulkerBoxBlockEntity)) {
-			player.openHandledScreen(shulkerBoxBlockEntity);
+			&& world.getBlockEntity(pos) instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity
+			&& canOpen(state, world, pos, netheriteShulkerBoxBlockEntity)) {
+			player.openHandledScreen(netheriteShulkerBoxBlockEntity);
 			player.incrementStat(Stats.OPEN_SHULKER_BOX);
 			PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
 		}
@@ -97,7 +98,7 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
-			if (!world.isClient && player.isCreative() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
+			if (!world.isClient && player.shouldSkipBlockDrops() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
 				ItemStack itemStack = getItemStack(this.getColor());
 				itemStack.applyComponentsFrom(blockEntity.createComponentMap());
 				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
@@ -112,7 +113,7 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 	}
 
 	@Override
-	protected List<ItemStack> getDroppedStacks(BlockState state, net.minecraft.loot.context.LootWorldContext.Builder builder) {
+	protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
 		BlockEntity blockEntity = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
 		if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
 			builder = builder.addDynamicDrop(CONTENTS_DYNAMIC_DROP_ID, lootConsumer -> {

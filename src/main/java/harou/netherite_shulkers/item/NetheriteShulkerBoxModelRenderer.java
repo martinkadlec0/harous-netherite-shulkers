@@ -8,7 +8,6 @@ import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.block.entity.ModTexturedRenderLayers;
 import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRenderer;
 
-import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -21,7 +20,6 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRenderer {
@@ -40,11 +38,6 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 	@Override
 	public void render(ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
 		this.blockEntityRenderer.render(matrices, vertexConsumers, light, overlay, this.facing, this.openness, this.textureId);
-	}
-
-	@Override
-	public void collectVertices(Set<Vector3f> vertices) {
-		this.blockEntityRenderer.collectVertices(this.facing, this.openness, vertices);
 	}
 
 	@Environment(EnvType.CLIENT)
