@@ -6,10 +6,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.ContainerUser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
@@ -43,6 +43,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 	public static final float field_31359 = 0.5F;
 	public static final float field_31360 = 270.0F;
 	private static final int[] AVAILABLE_SLOTS = IntStream.range(0, 27).toArray();
+	private static final Text CONTAINER_NAME_TEXT = Text.translatable("container.netheriteShulkerBox");
 	private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 	private int viewerCount;
 	private NetheriteShulkerBoxBlockEntity.AnimationStage animationStage = NetheriteShulkerBoxBlockEntity.AnimationStage.CLOSED;
@@ -166,8 +167,8 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 	}
 
 	@Override
-	public void onOpen(PlayerEntity player) {
-		if (!this.removed && !player.isSpectator()) {
+	public void onOpen(ContainerUser user) {
+		if (!this.removed && !user.asLivingEntity().isSpectator()) {
 			if (this.viewerCount < 0) {
 				this.viewerCount = 0;
 			}
@@ -175,19 +176,19 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 			this.viewerCount++;
 			this.world.addSyncedBlockEvent(this.pos, this.getCachedState().getBlock(), 1, this.viewerCount);
 			if (this.viewerCount == 1) {
-				this.world.emitGameEvent(player, GameEvent.CONTAINER_OPEN, this.pos);
+				this.world.emitGameEvent(user.asLivingEntity(), GameEvent.CONTAINER_OPEN, this.pos);
 				this.world.playSound(null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
 			}
 		}
 	}
 
 	@Override
-	public void onClose(PlayerEntity player) {
-		if (!this.removed && !player.isSpectator()) {
+	public void onClose(ContainerUser user) {
+		if (!this.removed && !user.asLivingEntity().isSpectator()) {
 			this.viewerCount--;
 			this.world.addSyncedBlockEvent(this.pos, this.getCachedState().getBlock(), 1, this.viewerCount);
 			if (this.viewerCount <= 0) {
-				this.world.emitGameEvent(player, GameEvent.CONTAINER_CLOSE, this.pos);
+				this.world.emitGameEvent(user.asLivingEntity(), GameEvent.CONTAINER_CLOSE, this.pos);
 				this.world.playSound(null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
 			}
 		}
@@ -195,7 +196,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 
 	@Override
 	protected Text getContainerName() {
-		return Text.translatable("container.netheriteShulkerBox");
+		return CONTAINER_NAME_TEXT;
 	}
 
 	@Override

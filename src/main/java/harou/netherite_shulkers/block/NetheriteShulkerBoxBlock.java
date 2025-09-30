@@ -97,7 +97,7 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
-			if (!world.isClient && player.isCreative() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
+			if (!world.isClient() && player.shouldSkipBlockDrops() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
 				ItemStack itemStack = getItemStack(this.getColor());
 				itemStack.applyComponentsFrom(blockEntity.createComponentMap());
 				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);

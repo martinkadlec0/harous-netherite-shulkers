@@ -10,6 +10,7 @@ import net.minecraft.util.DyeColor;
 
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.CopyComponentsLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
@@ -38,7 +39,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
             .pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(ItemEntry.builder(block)
-                    .apply(CopyComponentsLootFunction.builder(CopyComponentsLootFunction.Source.BLOCK_ENTITY)
+                    .apply(CopyComponentsLootFunction.blockEntity(LootContextParameters.BLOCK_ENTITY)
                         .include(DataComponentTypes.CONTAINER)
                         .include(DataComponentTypes.CONTAINER_LOOT)
                         .include(DataComponentTypes.CUSTOM_NAME)

@@ -49,11 +49,11 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 
 	// Easy Shulker Boxes
-	modApi "fuzs.puzzleslib:puzzleslib-fabric:${project.puzzleslib_version}"
-	modApi "fuzs.iteminteractions:iteminteractions-fabric:${project.iteminteractions_version}"
+	// modApi "fuzs.puzzleslib:puzzleslib-fabric:${project.puzzleslib_version}"
+	// modApi "fuzs.iteminteractions:iteminteractions-fabric:${project.iteminteractions_version}"
 }
 
 processResources {

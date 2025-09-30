@@ -1,43 +1,77 @@
 package harou.netherite_shulkers.block.entity;
 
+import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 
 import java.util.Set;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.state.ShulkerBoxBlockEntityRenderState;
+import net.minecraft.client.render.command.ModelCommandRenderer;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
-public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<NetheriteShulkerBoxBlockEntity> {
-	private final NetheriteShulkerBoxBlockEntityRenderer.NetheriteShulkerBoxBlockModel model;
+public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<NetheriteShulkerBoxBlockEntity, ShulkerBoxBlockEntityRenderState> {
+	private final SpriteHolder materials;
+	private final NetheriteShulkerBoxBlockModel model;
 
 	public NetheriteShulkerBoxBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-		this(ctx.getLoadedEntityModels());
+		this(ctx.loadedEntityModels(), ctx.spriteHolder());
 	}
 
-	public NetheriteShulkerBoxBlockEntityRenderer(LoadedEntityModels models) {
-		this.model = new NetheriteShulkerBoxBlockEntityRenderer.NetheriteShulkerBoxBlockModel(models.getModelPart(EntityModelLayers.SHULKER_BOX));
+	public NetheriteShulkerBoxBlockEntityRenderer(SpecialModelRenderer.BakeContext ctx) {
+		this(ctx.entityModelSet(), ctx.spriteHolder());
+	 }
+
+	public NetheriteShulkerBoxBlockEntityRenderer(LoadedEntityModels models, SpriteHolder materials) {
+		this.materials = materials;
+		this.model = new NetheriteShulkerBoxBlockModel(models.getModelPart(EntityModelLayers.SHULKER_BOX));
+	}
+
+	public ShulkerBoxBlockEntityRenderState createRenderState() {
+		return new ShulkerBoxBlockEntityRenderState();
+	}
+
+	public void updateRenderState(
+		NetheriteShulkerBoxBlockEntity shulkerBoxBlockEntity,
+		ShulkerBoxBlockEntityRenderState shulkerBoxBlockEntityRenderState,
+		float f,
+		Vec3d vec3d,
+		@Nullable ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlayCommand
+	) {
+		BlockEntityRenderer.super.updateRenderState(shulkerBoxBlockEntity, shulkerBoxBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
+		shulkerBoxBlockEntityRenderState.facing = shulkerBoxBlockEntity.getCachedState().get(NetheriteShulkerBoxBlock.FACING, Direction.UP);
+		shulkerBoxBlockEntityRenderState.dyeColor = shulkerBoxBlockEntity.getColor();
+		shulkerBoxBlockEntityRenderState.animationProgress = shulkerBoxBlockEntity.getAnimationProgress(f);
 	}
 
 	public void render(
-		NetheriteShulkerBoxBlockEntity shulkerBoxBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, Vec3d vec3d
+		ShulkerBoxBlockEntityRenderState shulkerBoxBlockEntityRenderState,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
 	) {
-		Direction direction = shulkerBoxBlockEntity.getCachedState().get(NetheriteShulkerBoxBlock.FACING, Direction.UP);
-		DyeColor dyeColor = shulkerBoxBlockEntity.getColor();
+		DyeColor dyeColor = shulkerBoxBlockEntityRenderState.dyeColor;
 		SpriteIdentifier spriteIdentifier;
 		if (dyeColor == null) {
 			spriteIdentifier = ModTexturedRenderLayers.NETHERITE_SHULKER_TEXTURE_ID;
@@ -45,17 +79,35 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 			spriteIdentifier = ModTexturedRenderLayers.COLORED_NETHERITE_SHULKER_BOXES_TEXTURES.get(dyeColor);
 		}
 
-		float g = shulkerBoxBlockEntity.getAnimationProgress(f);
-		this.render(matrixStack, vertexConsumerProvider, i, j, direction, g, spriteIdentifier);
+		this.render(
+			matrixStack,
+			orderedRenderCommandQueue,
+			shulkerBoxBlockEntityRenderState.lightmapCoordinates,
+			OverlayTexture.DEFAULT_UV,
+			shulkerBoxBlockEntityRenderState.facing,
+			shulkerBoxBlockEntityRenderState.animationProgress,
+			shulkerBoxBlockEntityRenderState.crumblingOverlay,
+			spriteIdentifier,
+			0
+		);
 	}
 
 	public void render(
-		MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Direction facing, float openness, SpriteIdentifier textureId
+		MatrixStack matrices,
+		OrderedRenderCommandQueue queue,
+		int light,
+		int overlay,
+		Direction facing,
+		float openness,
+		@Nullable ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay,
+		SpriteIdentifier spriteId,
+		int i
 	) {
 		matrices.push();
 		this.setTransforms(matrices, facing, openness);
-		VertexConsumer vertexConsumer = textureId.getVertexConsumer(vertexConsumers, this.model::getLayer);
-		this.model.render(matrices, vertexConsumer, light, overlay);
+		queue.submitModel(
+			this.model, openness, matrices, spriteId.getRenderLayer(this.model::getLayer), light, overlay, -1, this.materials.getSprite(spriteId), i, crumblingOverlay
+		);
 		matrices.pop();
 	}
 
@@ -65,7 +117,7 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 		matrices.multiply(facing.getRotationQuaternion());
 		matrices.scale(1.0F, -1.0F, -1.0F);
 		matrices.translate(0.0F, -1.0F, 0.0F);
-		this.model.animateLid(openness);
+		this.model.setAngles(openness);
 	}
 
 	public void collectVertices(Direction facing, float openness, Set<Vector3f> vertices) {
@@ -75,7 +127,7 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 	}
 
 	@Environment(EnvType.CLIENT)
-	static class NetheriteShulkerBoxBlockModel extends Model {
+	static class NetheriteShulkerBoxBlockModel extends Model<Float> {
 		private final ModelPart lid;
 
 		public NetheriteShulkerBoxBlockModel(ModelPart root) {
@@ -83,7 +135,8 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 			this.lid = root.getChild("lid");
 		}
 
-		public void animateLid(float openness) {
+		public void setAngles(Float openness) {
+			super.setAngles(openness);
 			this.lid.setOrigin(0.0F, 24.0F - openness * 0.5F * 16.0F, 0.0F);
 			this.lid.yaw = 270.0F * openness * (float) (Math.PI / 180.0);
 		}

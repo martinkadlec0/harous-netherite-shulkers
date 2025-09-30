@@ -11,8 +11,7 @@ import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRende
 import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -38,8 +37,8 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 	}
 
 	@Override
-	public void render(ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
-		this.blockEntityRenderer.render(matrices, vertexConsumers, light, overlay, this.facing, this.openness, this.textureId);
+	public void render(ItemDisplayContext displayContext, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, boolean glint, int i) {
+		this.blockEntityRenderer.render(matrices, queue, light, overlay, this.facing, this.openness, null, this.textureId, i);
 	}
 
 	@Override
@@ -72,9 +71,9 @@ public class NetheriteShulkerBoxModelRenderer implements SimpleSpecialModelRende
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
+		public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
 			return new NetheriteShulkerBoxModelRenderer(
-				new NetheriteShulkerBoxBlockEntityRenderer(entityModels), this.openness, this.facing, ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.map(this.texture)
+				new NetheriteShulkerBoxBlockEntityRenderer(context), this.openness, this.facing, ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.map(this.texture)
 			);
 		}
 	}
