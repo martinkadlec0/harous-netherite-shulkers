@@ -20,15 +20,18 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         HarousNetheriteShulkers.LOGGER.info("Generating block tags for Netherite Shulker Boxes...");
         
-        // Add all netherite shulker boxes to the mineable/pickaxe tag
+        // Add all netherite shulker boxes to the shulker_boxes & mineable/pickaxe tags
         var pickaxeMineable = valueLookupBuilder(BlockTags.PICKAXE_MINEABLE);
+        var shulkerBoxes = valueLookupBuilder(BlockTags.SHULKER_BOXES);
         
         // Add base netherite shulker box (no color)
         pickaxeMineable.add(ModBlocks.NETHERITE_SHULKER_BOX);
+        shulkerBoxes.add(ModBlocks.NETHERITE_SHULKER_BOX);
         
-        // Add all colored variants using the static get method
+        // Add all colored variants
         for (DyeColor color : DyeColor.values()) {
             pickaxeMineable.add(NetheriteShulkerBoxBlock.get(color));
+            shulkerBoxes.add(NetheriteShulkerBoxBlock.get(color));
         }
         
         HarousNetheriteShulkers.LOGGER.info("Block tags generated successfully!");
