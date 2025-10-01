@@ -1,6 +1,5 @@
 package harou.netherite_shulkers.block.entity;
 
-import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 
 import java.util.Set;
