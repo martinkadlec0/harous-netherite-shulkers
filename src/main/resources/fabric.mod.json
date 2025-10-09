@@ -3,7 +3,7 @@
 	"id": "harous-netherite-shulkers",
 	"version": "${version}",
 	"name": "Harou's Netherite Shulkers",
-	"description": "Reinforce your shulker boxes with netherite!",
+	"description": "Prevent your Shulker Boxes from burning in lava or getting blown up.",
 	"authors": [
 		"BSHarou"
 	],
@@ -35,7 +35,7 @@
 	"accessWidener": "harous-netherite-shulkers.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.17.2",
-		"minecraft": "1.21.9",
+		"minecraft": "1.21.10",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
