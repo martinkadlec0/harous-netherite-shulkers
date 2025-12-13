@@ -2,9 +2,7 @@ package harou.netherite_shulkers.data;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.DyeColor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
@@ -25,17 +23,12 @@ public class EasyShulkerBoxesGenerator extends AbstractItemContentsProvider {
 
     @Override
     public void addItemProviders(RegistryWrapper.WrapperLookup registries) {
-        RegistryWrapper.Impl<Item> items = registries.getOrThrow(RegistryKeys.ITEM);
-        this.registerNetheriteShulkerBoxProviders(items);
-    }
-
-    private void registerNetheriteShulkerBoxProviders(RegistryWrapper.Impl<Item> items) {
         ItemContentsProvider provider = new ContainerProvider(9, 3).filterContainerItems(true);
-        this.add(items, provider, ModItems.NETHERITE_SHULKER_BOX);
+        this.add(provider, ModItems.NETHERITE_SHULKER_BOX);
 
         for (DyeColor dyeColor : DyeColor.values()) {
             ItemContentsProvider coloredProvider = new ContainerProvider(9, 3, DyeBackedColor.fromDyeColor(dyeColor)).filterContainerItems(true);
-            this.add(items, coloredProvider, NetheriteShulkerBoxItem.get(dyeColor));
+            this.add(coloredProvider, NetheriteShulkerBoxItem.get(dyeColor));
         }
     }
 }

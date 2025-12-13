@@ -2,14 +2,14 @@ package harou.netherite_shulkers.block.entity;
 
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.state.ShulkerBoxBlockEntityRenderState;
@@ -27,7 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<NetheriteShulkerBoxBlockEntity, ShulkerBoxBlockEntityRenderState> {
@@ -119,10 +119,10 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 		this.model.setAngles(openness);
 	}
 
-	public void collectVertices(Direction facing, float openness, Set<Vector3f> vertices) {
+	public void collectVertices(Direction facing, float openness, Consumer<Vector3fc> consumer) {
 		MatrixStack matrixStack = new MatrixStack();
 		this.setTransforms(matrixStack, facing, openness);
-		this.model.getRootPart().collectVertices(matrixStack, vertices);
+		this.model.getRootPart().collectVertices(matrixStack, consumer);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -130,7 +130,7 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
 		private final ModelPart lid;
 
 		public NetheriteShulkerBoxBlockModel(ModelPart root) {
-			super(root, RenderLayer::getEntityCutoutNoCull);
+			super(root, RenderLayers::entityCutoutNoCull);
 			this.lid = root.getChild("lid");
 		}
 
