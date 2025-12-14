@@ -5,9 +5,9 @@ import com.misterpemodder.shulkerboxtooltip.api.provider.PreviewProviderRegistry
 
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
 import harou.netherite_shulkers.item.ModItems;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
     static Item[] ITEMS = {
@@ -32,8 +32,8 @@ public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
 
     @Override
     public void registerProviders(PreviewProviderRegistry registry) { 
-        String namespace = BlockEntityType.getId(ModBlockEntities.NETHERITE_SHULKER_BOX).getNamespace();
-        var identifier = Identifier.of(namespace, "netherite_shulker_box");
+        String namespace = BlockEntityType.getKey(ModBlockEntities.NETHERITE_SHULKER_BOX).getNamespace();
+        var identifier = Identifier.fromNamespaceAndPath(namespace, "netherite_shulker_box");
         registry.register(identifier, new NetheriteShulkerBoxPreviewProvider(), ITEMS);    
     }
 }

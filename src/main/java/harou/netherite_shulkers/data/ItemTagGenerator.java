@@ -6,25 +6,24 @@ import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public static final TagKey<net.minecraft.item.Item> NETHERITE_SHULKER_BOXES = TagKey.of(
-        net.minecraft.registry.RegistryKeys.ITEM, 
-        Identifier.of("harous-netherite-shulkers", "netherite_shulker_boxes")
+    public static final TagKey<net.minecraft.world.item.Item> NETHERITE_SHULKER_BOXES = TagKey.create(
+        net.minecraft.core.registries.Registries.ITEM, 
+        Identifier.fromNamespaceAndPath("harous-netherite-shulkers", "netherite_shulker_boxes")
     );
     
-    public ItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup arg) {
+    protected void addTags(HolderLookup.Provider arg) {
         HarousNetheriteShulkers.LOGGER.info("Generating item tags for Netherite Shulker Boxes...");
         
         // Add all netherite shulker boxes to the shulker_boxes tag

@@ -4,20 +4,20 @@ import harou.netherite_shulkers.block.ModBlocks;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
 import harou.netherite_shulkers.block.entity.ModTexturedRenderLayers;
-import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntityRenderer;
-import harou.netherite_shulkers.item.NetheriteShulkerBoxModelRenderer;
+import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxRenderer;
+import harou.netherite_shulkers.item.NetheriteShulkerBoxSpecialRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.SpecialBlockRendererRegistry;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.util.DyeColor;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.item.DyeColor;
 
 public class HarousNetheriteShulkersClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         // Register block entity renderer
-        BlockEntityRendererFactories.register(
+        BlockEntityRenderers.register(
             ModBlockEntities.NETHERITE_SHULKER_BOX,
-            NetheriteShulkerBoxBlockEntityRenderer::new
+            NetheriteShulkerBoxRenderer::new
         );
 
         registerTexturedRenderLayers();
@@ -28,14 +28,14 @@ public class HarousNetheriteShulkersClient implements ClientModInitializer {
         // Register for the base netherite shulker box
         SpecialBlockRendererRegistry.register(
             ModBlocks.NETHERITE_SHULKER_BOX,
-            new NetheriteShulkerBoxModelRenderer.Unbaked()
+            new NetheriteShulkerBoxSpecialRenderer.Unbaked()
         );
 
         // Register for all colored variants
         for (DyeColor color : DyeColor.values()) {
             SpecialBlockRendererRegistry.register(
-                NetheriteShulkerBoxBlock.get(color),
-                new NetheriteShulkerBoxModelRenderer.Unbaked(color)
+                NetheriteShulkerBoxBlock.getBlockByColor(color),
+                new NetheriteShulkerBoxSpecialRenderer.Unbaked(color)
             );
         }
     }

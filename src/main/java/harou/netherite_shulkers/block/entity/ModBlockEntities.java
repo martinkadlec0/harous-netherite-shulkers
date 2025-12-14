@@ -4,14 +4,14 @@ import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.block.ModBlocks;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ModBlockEntities {
 	public static void initialize() {}
@@ -47,12 +47,12 @@ public class ModBlockEntities {
 		).build()
 	);
 
-	public static BlockEntityType<NetheriteShulkerBoxBlockEntity> register(RegistryKey<BlockEntityType<?>> key, BlockEntityType<NetheriteShulkerBoxBlockEntity> blockEntityType) {
-		return Registry.register(Registries.BLOCK_ENTITY_TYPE, key, blockEntityType);
+	public static BlockEntityType<NetheriteShulkerBoxBlockEntity> register(ResourceKey<BlockEntityType<?>> key, BlockEntityType<NetheriteShulkerBoxBlockEntity> blockEntityType) {
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, key, blockEntityType);
 	}
 
-	private static RegistryKey<BlockEntityType<?>> keyOf(String id) {
-		return RegistryKey.of(RegistryKeys.BLOCK_ENTITY_TYPE, Identifier.of(HarousNetheriteShulkers.MOD_ID, id));
+	private static ResourceKey<BlockEntityType<?>> keyOf(String id) {
+		return ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, id));
 	}
 
 	private static BlockEntityType<NetheriteShulkerBoxBlockEntity> register(String id, BlockEntityType<NetheriteShulkerBoxBlockEntity> blockEntityType) {

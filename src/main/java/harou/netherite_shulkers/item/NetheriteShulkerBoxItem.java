@@ -1,20 +1,19 @@
 package harou.netherite_shulkers.item;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.DyeColor;
-
 public class NetheriteShulkerBoxItem extends BlockItem {
-    public NetheriteShulkerBoxItem(Block block, Item.Settings settings) {
+    public NetheriteShulkerBoxItem(Block block, Item.Properties settings) {
         super(block, settings
-            .fireproof()
-            .maxCount(1)
-            .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+            .fireResistant()
+            .stacksTo(1)
+            .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
         );
     }
 

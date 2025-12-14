@@ -3,13 +3,10 @@ package harou.netherite_shulkers.integration.shulkerboxtooltip;
 import com.misterpemodder.shulkerboxtooltip.api.PreviewContext;
 import com.misterpemodder.shulkerboxtooltip.api.color.ColorKey;
 import com.misterpemodder.shulkerboxtooltip.api.provider.BlockEntityPreviewProvider;
-
-import net.minecraft.block.Block;
-import net.minecraft.util.DyeColor;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
 
 public class NetheriteShulkerBoxPreviewProvider extends BlockEntityPreviewProvider {
@@ -28,7 +25,7 @@ public class NetheriteShulkerBoxPreviewProvider extends BlockEntityPreviewProvid
     @Override
     @Environment(EnvType.CLIENT)
     public ColorKey getWindowColorKey(PreviewContext context) {
-        DyeColor dye = ((NetheriteShulkerBoxBlock) Block.getBlockFromItem(context.stack().getItem())).getColor();
+        DyeColor dye = ((NetheriteShulkerBoxBlock) Block.byItem(context.stack().getItem())).getColor();
 
         if (dye == null)
             return ColorKey.SHULKER_BOX;

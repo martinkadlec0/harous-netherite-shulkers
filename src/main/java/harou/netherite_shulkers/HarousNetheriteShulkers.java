@@ -6,11 +6,11 @@ import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.util.DyeColor;
+import net.minecraft.core.dispenser.ShulkerBoxDispenseBehavior;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class HarousNetheriteShulkers implements ModInitializer {
 		ModItems.initialize();
 
 		// Add Netherite Shulker Boxes to the creative inventory tab after vanilla shulker boxes
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(entries -> {
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
 			// Insert undyed netherite shulker box after all vanilla shulker boxes
 			entries.addAfter(Blocks.PINK_SHULKER_BOX.asItem(),
 				ModItems.NETHERITE_SHULKER_BOX
@@ -46,7 +46,7 @@ public class HarousNetheriteShulkers implements ModInitializer {
 		});
 
 		// Register dispenser behavior for Netherite Shulker Boxes (same as vanilla shulker boxes)
-		BlockPlacementDispenserBehavior shulkerBehavior = new BlockPlacementDispenserBehavior();
+		ShulkerBoxDispenseBehavior shulkerBehavior = new ShulkerBoxDispenseBehavior();
 		DispenserBlock.registerBehavior(ModItems.NETHERITE_SHULKER_BOX, shulkerBehavior);
 		for (DyeColor color : DyeColor.values()) {
 			DispenserBlock.registerBehavior(NetheriteShulkerBoxItem.get(color), shulkerBehavior);

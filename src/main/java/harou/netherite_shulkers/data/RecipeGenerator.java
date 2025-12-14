@@ -5,52 +5,51 @@ import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.TransmuteRecipeJsonBuilder;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.DyeColor;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.TransmuteRecipeBuilder;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeGenerator extends FabricRecipeProvider {
-    public RecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public RecipeGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected net.minecraft.data.recipe.RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
-        return new net.minecraft.data.recipe.RecipeGenerator(registryLookup, exporter) {
+    protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+        return new net.minecraft.data.recipes.RecipeProvider(registryLookup, exporter) {
             @Override
-            public void generate() {
+            public void buildRecipes() {
                 HarousNetheriteShulkers.LOGGER.info("Generating Netherite Shulker Box recipes...");
                 
                 // Generate base netherite shulker box recipe (from regular shulker box)
-                offerNetheriteUpgradeRecipe(Items.SHULKER_BOX, RecipeCategory.MISC, ModItems.NETHERITE_SHULKER_BOX);
+                netheriteSmithing(Items.SHULKER_BOX, RecipeCategory.MISC, ModItems.NETHERITE_SHULKER_BOX);
 
                 // Generate colored netherite shulker box recipes
                 for (DyeColor color : DyeColor.values()) {
-                    offerNetheriteUpgradeRecipe(getVanillaShulkerBox(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
+                    netheriteSmithing(getVanillaShulkerBox(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
                 }
                 
                 // Generate color conversion recipes for netherite shulker boxes using crafting_transmute
-                Ingredient ingredient = ingredientFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES);
+                Ingredient ingredient = tag(ItemTagGenerator.NETHERITE_SHULKER_BOXES);
         
                 for (DyeColor dyeColor : DyeColor.values()) {
                     Item targetShulker = NetheriteShulkerBoxItem.get(dyeColor);
-                    TransmuteRecipeJsonBuilder.create(
+                    TransmuteRecipeBuilder.transmute(
                         RecipeCategory.DECORATIONS,
                         ingredient,
-                        Ingredient.ofItem(DyeItem.byColor(dyeColor)),
+                        Ingredient.of(DyeItem.byColor(dyeColor)),
                         targetShulker.asItem()
                     )
                     .group("netherite_shulker_box_dye")
-                    .criterion("has_netherite_shulker_box", conditionsFromTag(ItemTagGenerator.NETHERITE_SHULKER_BOXES))
-                    .offerTo(exporter);
+                    .unlockedBy("has_netherite_shulker_box", has(ItemTagGenerator.NETHERITE_SHULKER_BOXES))
+                    .save(output);
                 }
                 
                 HarousNetheriteShulkers.LOGGER.info("Netherite Shulker Box recipes generated successfully!");
