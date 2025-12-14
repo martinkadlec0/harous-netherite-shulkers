@@ -7,15 +7,18 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public static final TagKey<net.minecraft.world.item.Item> NETHERITE_SHULKER_BOXES = TagKey.create(
-        net.minecraft.core.registries.Registries.ITEM, 
-        Identifier.fromNamespaceAndPath("harous-netherite-shulkers", "netherite_shulker_boxes")
+    public static final TagKey<Item> NETHERITE_SHULKER_BOXES = TagKey.create(
+        Registries.ITEM, 
+        Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, "netherite_shulker_boxes")
     );
     
     public ItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

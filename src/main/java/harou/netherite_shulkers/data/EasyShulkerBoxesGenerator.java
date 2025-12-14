@@ -1,0 +1,34 @@
+package harou.netherite_shulkers.data;
+
+import java.util.concurrent.CompletableFuture;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.DyeColor;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+
+import fuzs.iteminteractions.api.v1.DyeBackedColor;
+import fuzs.iteminteractions.api.v1.data.AbstractItemContentsProvider;
+import fuzs.iteminteractions.api.v1.provider.ItemContentsProvider;
+import fuzs.iteminteractions.api.v1.provider.impl.ContainerProvider;
+import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
+
+import harou.netherite_shulkers.item.ModItems;
+import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
+
+public class EasyShulkerBoxesGenerator extends AbstractItemContentsProvider {
+    
+    public EasyShulkerBoxesGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(new DataProviderContext("easyshulkerboxes", output, registriesFuture));
+    }
+
+    @Override
+    public void addItemProviders(HolderLookup.Provider registries) {
+        ItemContentsProvider provider = new ContainerProvider(9, 3).filterContainerItems(true);
+        this.add(provider, ModItems.NETHERITE_SHULKER_BOX);
+
+        for (DyeColor dyeColor : DyeColor.values()) {
+            ItemContentsProvider coloredProvider = new ContainerProvider(9, 3, DyeBackedColor.fromDyeColor(dyeColor)).filterContainerItems(true);
+            this.add(coloredProvider, NetheriteShulkerBoxItem.get(dyeColor));
+        }
+    }
+}
