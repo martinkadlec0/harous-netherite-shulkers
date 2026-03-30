@@ -1,0 +1,14 @@
+classTweaker v1 official
+
+accessible field net/minecraft/world/level/block/entity/BlockEntity type Lnet/minecraft/world/level/block/entity/BlockEntityType;
+mutable field net/minecraft/world/level/block/entity/BlockEntity type Lnet/minecraft/world/level/block/entity/BlockEntityType;
+
+accessible field net/minecraft/world/level/block/ShulkerBoxBlock color Lnet/minecraft/world/item/DyeColor;
+mutable field net/minecraft/world/level/block/ShulkerBoxBlock color Lnet/minecraft/world/item/DyeColor;
+
+mutable field net/minecraft/world/level/block/ShulkerBoxBlock CODEC Lcom/mojang/serialization/MapCodec;
+
+accessible method net/minecraft/client/renderer/block/BuiltInBlockModels specialModelWithPropertyDispatch (Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/function/Function;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
+accessible method net/minecraft/client/renderer/block/BuiltInBlockModels specialModelWithPropertyDispatch (Lnet/minecraft/world/level/block/state/properties/Property;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/function/BiFunction;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
+accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$Builder put (Lnet/minecraft/client/renderer/block/BuiltInBlockModels$ModelFactory;Lnet/minecraft/world/level/block/Block;)V
+accessible class net/minecraft/client/renderer/block/BuiltInBlockModels$Builder

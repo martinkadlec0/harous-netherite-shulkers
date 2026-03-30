@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "harou.netherite_shulkers.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [],
+	"mixins": [
+		"BuiltInBlockModelsMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
