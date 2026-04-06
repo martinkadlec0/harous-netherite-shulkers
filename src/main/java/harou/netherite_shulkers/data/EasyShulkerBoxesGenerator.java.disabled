@@ -16,19 +16,19 @@ import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 
 public class EasyShulkerBoxesGenerator extends AbstractItemContentsProvider {
-    
-  public EasyShulkerBoxesGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-    super(new DataProviderContext("easyshulkerboxes", output, registriesFuture));
-  }
+		
+	public EasyShulkerBoxesGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(new DataProviderContext("easyshulkerboxes", output, registriesFuture));
+	}
 
-  @Override
-  public void addItemProviders(HolderLookup.Provider registries) {
-    ItemContentsProvider provider = new ContainerProvider(9, 3).filterContainerItems(true);
-    this.add(provider, ModItems.NETHERITE_SHULKER_BOX);
+	@Override
+	public void addItemProviders(HolderLookup.Provider registries) {
+		ItemContentsProvider provider = new ContainerProvider(9, 3).filterContainerItems(true);
+		this.add(provider, ModItems.NETHERITE_SHULKER_BOX);
 
-    for (DyeColor dyeColor : DyeColor.values()) {
-      ItemContentsProvider coloredProvider = new ContainerProvider(9, 3, DyeBackedColor.fromDyeColor(dyeColor)).filterContainerItems(true);
-      this.add(coloredProvider, NetheriteShulkerBoxItem.get(dyeColor));
-    }
-  }
+		for (DyeColor dyeColor : DyeColor.values()) {
+			ItemContentsProvider coloredProvider = new ContainerProvider(9, 3, DyeBackedColor.fromDyeColor(dyeColor)).filterContainerItems(true);
+			this.add(coloredProvider, NetheriteShulkerBoxItem.get(dyeColor));
+		}
+	}
 }

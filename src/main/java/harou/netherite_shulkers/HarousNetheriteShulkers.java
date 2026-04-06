@@ -15,43 +15,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HarousNetheriteShulkers implements ModInitializer {
-  public static final String MOD_ID = "harous-netherite-shulkers";
+	public static final String MOD_ID = "harous-netherite-shulkers";
 
-  // This logger is used to write text to the console and the log file.
-  // It is considered best practice to use your mod id as the logger's name.
-  // That way, it's clear which mod wrote info, warnings, and errors.
-  public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	// This logger is used to write text to the console and the log file.
+	// It is considered best practice to use your mod id as the logger's name.
+	// That way, it's clear which mod wrote info, warnings, and errors.
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-  @Override
-  public void onInitialize() {
-    // Wait for vanilla blocks to be registered first
-    LOGGER.info("Starting Harou's Netherite Shulkers initialization...");
-    
-    ModBlockEntities.initialize();
-    ModBlocks.initialize();
-    ModItems.initialize();
+	@Override
+	public void onInitialize() {
+		// Wait for vanilla blocks to be registered first
+		LOGGER.info("Starting Harou's Netherite Shulkers initialization...");
+		
+		ModBlockEntities.initialize();
+		ModBlocks.initialize();
+		ModItems.initialize();
 
-    // Add Netherite Shulker Boxes to the creative inventory tab after vanilla shulker boxes
-    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(output -> {
-      // Insert undyed netherite shulker box after all vanilla shulker boxes
-      output.insertAfter(Blocks.PINK_SHULKER_BOX.asItem(),
-        ModItems.NETHERITE_SHULKER_BOX
-      );
-      // Add colored variants after the undyed netherite shulker box in correct order
-      for (DyeColor color : DyeColor.values()) {
-        output.insertAfter(ModItems.NETHERITE_SHULKER_BOX,
-          NetheriteShulkerBoxItem.get(color)
-        );
-      }
-    });
+		// Add Netherite Shulker Boxes to the creative inventory tab after vanilla shulker boxes
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(output -> {
+			// Insert undyed netherite shulker box after all vanilla shulker boxes
+			output.insertAfter(Blocks.PINK_SHULKER_BOX.asItem(),
+				ModItems.NETHERITE_SHULKER_BOX
+			);
+			// Add colored variants after the undyed netherite shulker box in correct order
+			for (DyeColor color : DyeColor.values()) {
+				output.insertAfter(ModItems.NETHERITE_SHULKER_BOX,
+					NetheriteShulkerBoxItem.get(color)
+				);
+			}
+		});
 
-    // Register dispenser behavior for Netherite Shulker Boxes (same as vanilla shulker boxes)
-    ShulkerBoxDispenseBehavior shulkerBehavior = new ShulkerBoxDispenseBehavior();
-    DispenserBlock.registerBehavior(ModItems.NETHERITE_SHULKER_BOX, shulkerBehavior);
-    for (DyeColor color : DyeColor.values()) {
-      DispenserBlock.registerBehavior(NetheriteShulkerBoxItem.get(color), shulkerBehavior);
-    }
+		// Register dispenser behavior for Netherite Shulker Boxes (same as vanilla shulker boxes)
+		ShulkerBoxDispenseBehavior shulkerBehavior = new ShulkerBoxDispenseBehavior();
+		DispenserBlock.registerBehavior(ModItems.NETHERITE_SHULKER_BOX, shulkerBehavior);
+		for (DyeColor color : DyeColor.values()) {
+			DispenserBlock.registerBehavior(NetheriteShulkerBoxItem.get(color), shulkerBehavior);
+		}
 
-    LOGGER.info("Harou's Netherite Shulkers mod initialized!");
-  }
+		LOGGER.info("Harou's Netherite Shulkers mod initialized!");
+	}
 }

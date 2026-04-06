@@ -13,49 +13,49 @@ import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.resources.Identifier;
 
 public class HarousNetheriteShulkersClient implements ClientModInitializer {
-  @Override
-  public void onInitializeClient() {
-    // Register block entity renderer
-    BlockEntityRenderers.register(
-      ModBlockEntities.NETHERITE_SHULKER_BOX,
-      NetheriteShulkerBoxRenderer::new
-    );
+	@Override
+	public void onInitializeClient() {
+		// Register block entity renderer
+		BlockEntityRenderers.register(
+			ModBlockEntities.NETHERITE_SHULKER_BOX,
+			NetheriteShulkerBoxRenderer::new
+		);
 
-    registerTexturedRenderLayers();
-    registerSpecialModelRenderers();
-  }
+		registerTexturedRenderLayers();
+		registerSpecialModelRenderers();
+	}
 
-  // private void registerSpecialModelRenderers() {
-  //     // Register for the base netherite shulker box
-  //     SpecialBlockRendererRegistry.register(
-  //         ModBlocks.NETHERITE_SHULKER_BOX,
-  //         new NetheriteShulkerBoxSpecialRenderer.Unbaked()
-  //     );
+	// private void registerSpecialModelRenderers() {
+	//     // Register for the base netherite shulker box
+	//     SpecialBlockRendererRegistry.register(
+	//         ModBlocks.NETHERITE_SHULKER_BOX,
+	//         new NetheriteShulkerBoxSpecialRenderer.Unbaked()
+	//     );
 
-  //     // Register for all colored variants
-  //     for (DyeColor color : DyeColor.values()) {
-  //         SpecialBlockRendererRegistry.register(
-  //             NetheriteShulkerBoxBlock.getBlockByColor(color),
-  //             new NetheriteShulkerBoxSpecialRenderer.Unbaked(color)
-  //         );
-  //     }
-  // }
+	//     // Register for all colored variants
+	//     for (DyeColor color : DyeColor.values()) {
+	//         SpecialBlockRendererRegistry.register(
+	//             NetheriteShulkerBoxBlock.getBlockByColor(color),
+	//             new NetheriteShulkerBoxSpecialRenderer.Unbaked(color)
+	//         );
+	//     }
+	// }
 
-  /**
-   * Fabric doesn't have SpecialBlockRendererRegistry for 26.1, so instead we register stuff using mixin
-   * @see {BuiltInBlockModelsMixin}
-   */
-  private void registerSpecialModelRenderers() {
-    // assets/item -> model.model.type
-    SpecialModelRenderers.ID_MAPPER.put(
-      Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, "netherite_shulker_box"),
-      NetheriteShulkerBoxSpecialRenderer.Unbaked.MAP_CODEC
-    );
-  }
+	/**
+	 * Fabric doesn't have SpecialBlockRendererRegistry for 26.1, so instead we register stuff using mixin
+	 * @see {BuiltInBlockModelsMixin}
+	 */
+	private void registerSpecialModelRenderers() {
+		// assets/item -> model.model.type
+		SpecialModelRenderers.ID_MAPPER.put(
+			Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, "netherite_shulker_box"),
+			NetheriteShulkerBoxSpecialRenderer.Unbaked.MAP_CODEC
+		);
+	}
 
-  public void registerTexturedRenderLayers() {
-    ModTexturedRenderLayers.registerNetheriteShulkerSpriteMapper(HarousNetheriteShulkers.MOD_ID);
-    ModTexturedRenderLayers.registerMaterialDefaultSprite(HarousNetheriteShulkers.MOD_ID);
-    ModTexturedRenderLayers.registerMaterialColoringSprites(HarousNetheriteShulkers.MOD_ID);
-  }
+	public void registerTexturedRenderLayers() {
+		ModTexturedRenderLayers.registerNetheriteShulkerSpriteMapper(HarousNetheriteShulkers.MOD_ID);
+		ModTexturedRenderLayers.registerMaterialDefaultSprite(HarousNetheriteShulkers.MOD_ID);
+		ModTexturedRenderLayers.registerMaterialColoringSprites(HarousNetheriteShulkers.MOD_ID);
+	}
 } 

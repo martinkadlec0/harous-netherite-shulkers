@@ -16,35 +16,35 @@ import net.minecraft.world.item.Item;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
-  public static final TagKey<Item> NETHERITE_SHULKER_BOXES = TagKey.create(
-    Registries.ITEM, 
-    Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, "netherite_shulker_boxes")
-  );
-  
-  public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-    super(output, registriesFuture);
-  }
+	public static final TagKey<Item> NETHERITE_SHULKER_BOXES = TagKey.create(
+		Registries.ITEM, 
+		Identifier.fromNamespaceAndPath(HarousNetheriteShulkers.MOD_ID, "netherite_shulker_boxes")
+	);
+	
+	public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
+	}
 
-  @Override
-  protected void addTags(HolderLookup.Provider arg) {
-    HarousNetheriteShulkers.LOGGER.info("Generating item tags for Netherite Shulker Boxes...");
-    
-    // Add all netherite shulker boxes to the shulker_boxes tag
-    var shulkerBoxes = valueLookupBuilder(ConventionalItemTags.SHULKER_BOXES);
-    
-    // Create custom tag for netherite shulker boxes
-    var netheriteShulkerBoxes = valueLookupBuilder(NETHERITE_SHULKER_BOXES);
-    
-    // Add base netherite shulker box (no color)
-    shulkerBoxes.add(ModItems.NETHERITE_SHULKER_BOX);
-    netheriteShulkerBoxes.add(ModItems.NETHERITE_SHULKER_BOX);
-    
-    // Add all colored variants using the static get method
-    for (DyeColor color : DyeColor.values()) {
-      shulkerBoxes.add(NetheriteShulkerBoxItem.get(color));
-      netheriteShulkerBoxes.add(NetheriteShulkerBoxItem.get(color));
-    }
-    
-    HarousNetheriteShulkers.LOGGER.info("Item tags generated successfully!");
-  }
+	@Override
+	protected void addTags(HolderLookup.Provider arg) {
+		HarousNetheriteShulkers.LOGGER.info("Generating item tags for Netherite Shulker Boxes...");
+		
+		// Add all netherite shulker boxes to the shulker_boxes tag
+		var shulkerBoxes = valueLookupBuilder(ConventionalItemTags.SHULKER_BOXES);
+		
+		// Create custom tag for netherite shulker boxes
+		var netheriteShulkerBoxes = valueLookupBuilder(NETHERITE_SHULKER_BOXES);
+		
+		// Add base netherite shulker box (no color)
+		shulkerBoxes.add(ModItems.NETHERITE_SHULKER_BOX);
+		netheriteShulkerBoxes.add(ModItems.NETHERITE_SHULKER_BOX);
+		
+		// Add all colored variants using the static get method
+		for (DyeColor color : DyeColor.values()) {
+			shulkerBoxes.add(NetheriteShulkerBoxItem.get(color));
+			netheriteShulkerBoxes.add(NetheriteShulkerBoxItem.get(color));
+		}
+		
+		HarousNetheriteShulkers.LOGGER.info("Item tags generated successfully!");
+	}
 } 

@@ -5,6 +5,13 @@ plugins {
 
 loom {
 	accessWidenerPath = file("src/main/resources/harous-netherite-shulkers.classtweaker")
+
+	runs {
+		client {
+			programArgs("--username", "BSHarou")
+			programArgs("--uuid", "6b2ad775-d1ef-4a6d-ba1d-f95725b5ed7e")
+		}
+	}
 }
 
 version = project.mod_version

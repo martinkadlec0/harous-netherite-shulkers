@@ -21,79 +21,79 @@ import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxRenderer;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteShulkerBoxSpecialRenderer implements NoDataSpecialModelRenderer {
-  private final NetheriteShulkerBoxRenderer shulkerBoxRenderer;
-  private final float openness;
-  private final SpriteId sprite;
+	private final NetheriteShulkerBoxRenderer shulkerBoxRenderer;
+	private final float openness;
+	private final SpriteId sprite;
 
-  public NetheriteShulkerBoxSpecialRenderer(
-    final NetheriteShulkerBoxRenderer shulkerBoxRenderer,
-    final float openness,
-    final SpriteId sprite
-  ) {
-    this.shulkerBoxRenderer = shulkerBoxRenderer;
-    this.openness = openness;
-    this.sprite = sprite;
-  }
+	public NetheriteShulkerBoxSpecialRenderer(
+		final NetheriteShulkerBoxRenderer shulkerBoxRenderer,
+		final float openness,
+		final SpriteId sprite
+	) {
+		this.shulkerBoxRenderer = shulkerBoxRenderer;
+		this.openness = openness;
+		this.sprite = sprite;
+	}
 
-  @Override
-  public void submit(
-    final PoseStack poseStack,
-    final SubmitNodeCollector submitNodeCollector,
-    final int lightCoords,
-    final int overlayCoords,
-    final boolean hasFoil,
-    final int outlineColor
-  ) {
-    this.shulkerBoxRenderer.submit(poseStack, submitNodeCollector, lightCoords, overlayCoords, this.openness, null, this.sprite, outlineColor);
-  }
+	@Override
+	public void submit(
+		final PoseStack poseStack,
+		final SubmitNodeCollector submitNodeCollector,
+		final int lightCoords,
+		final int overlayCoords,
+		final boolean hasFoil,
+		final int outlineColor
+	) {
+		this.shulkerBoxRenderer.submit(poseStack, submitNodeCollector, lightCoords, overlayCoords, this.openness, null, this.sprite, outlineColor);
+	}
 
-  @Override
-  public void getExtents(final Consumer<Vector3fc> output) {
-    this.shulkerBoxRenderer.getExtents(this.openness, output);
-  }
+	@Override
+	public void getExtents(final Consumer<Vector3fc> output) {
+		this.shulkerBoxRenderer.getExtents(this.openness, output);
+	}
 
-  @Environment(EnvType.CLIENT)
-  public record Unbaked(Identifier texture, float openness) implements NoDataSpecialModelRenderer.Unbaked {
-    public static final MapCodec<NetheriteShulkerBoxSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
-      i -> i.group(
-          Identifier.CODEC.fieldOf("texture").forGetter(NetheriteShulkerBoxSpecialRenderer.Unbaked::texture),
-          Codec.FLOAT.optionalFieldOf("openness", 0.0F).forGetter(NetheriteShulkerBoxSpecialRenderer.Unbaked::openness)
-        )
-        .apply(i, NetheriteShulkerBoxSpecialRenderer.Unbaked::new)
-    );
+	@Environment(EnvType.CLIENT)
+	public record Unbaked(Identifier texture, float openness) implements NoDataSpecialModelRenderer.Unbaked {
+		public static final MapCodec<NetheriteShulkerBoxSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
+			i -> i.group(
+					Identifier.CODEC.fieldOf("texture").forGetter(NetheriteShulkerBoxSpecialRenderer.Unbaked::texture),
+					Codec.FLOAT.optionalFieldOf("openness", 0.0F).forGetter(NetheriteShulkerBoxSpecialRenderer.Unbaked::openness)
+				)
+				.apply(i, NetheriteShulkerBoxSpecialRenderer.Unbaked::new)
+		);
 
-    public Unbaked() {
-      this(
-        Identifier.fromNamespaceAndPath(
-          HarousNetheriteShulkers.MOD_ID,
-          "shulker"
-        ),
-        0.0F
-      );
-    }
+		public Unbaked() {
+			this(
+				Identifier.fromNamespaceAndPath(
+					HarousNetheriteShulkers.MOD_ID,
+					"shulker"
+				),
+				0.0F
+			);
+		}
 
-    public Unbaked(DyeColor color) {
-      this(
-        Identifier.fromNamespaceAndPath(
-          HarousNetheriteShulkers.MOD_ID,
-          String.format("shulker_%s", color.getName())
-        ),
-        0.0F
-      );
-    }
+		public Unbaked(DyeColor color) {
+			this(
+				Identifier.fromNamespaceAndPath(
+					HarousNetheriteShulkers.MOD_ID,
+					String.format("shulker_%s", color.getName())
+				),
+				0.0F
+			);
+		}
 
-    @Override
-    public MapCodec<NetheriteShulkerBoxSpecialRenderer.Unbaked> type() {
-      return MAP_CODEC;
-    }
+		@Override
+		public MapCodec<NetheriteShulkerBoxSpecialRenderer.Unbaked> type() {
+			return MAP_CODEC;
+		}
 
-    @Override
-    public NetheriteShulkerBoxSpecialRenderer bake(SpecialModelRenderer.BakingContext context) {
-      return new NetheriteShulkerBoxSpecialRenderer(
-        new NetheriteShulkerBoxRenderer(context),
-        this.openness,
-        ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.apply(this.texture)
-      );
-    }
-  }
+		@Override
+		public NetheriteShulkerBoxSpecialRenderer bake(SpecialModelRenderer.BakingContext context) {
+			return new NetheriteShulkerBoxSpecialRenderer(
+				new NetheriteShulkerBoxRenderer(context),
+				this.openness,
+				ModTexturedRenderLayers.NETHERITE_SHULKER_SPRITE_MAPPER.apply(this.texture)
+			);
+		}
+	}
 }

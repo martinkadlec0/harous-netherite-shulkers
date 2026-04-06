@@ -21,39 +21,39 @@ import java.util.Optional;
 @Mixin(BuiltInBlockModels.class)
 public class BuiltInBlockModelsMixin {
 
-  @Inject(method = "addDefaults", at = @At("TAIL"))
-  private static void addNetheriteShulkerBoxes(BuiltInBlockModels.Builder builder, CallbackInfo ci) {
-    // For default shulker
-    builder.put(
-      BuiltInBlockModels.specialModelWithPropertyDispatch(
-        ShulkerBoxBlock.FACING,
-        facing -> modSpecial(
-          new NetheriteShulkerBoxSpecialRenderer.Unbaked(),
-          NetheriteShulkerBoxRenderer.modelTransform(facing)
-        )
-      ),
-      ModBlocks.NETHERITE_SHULKER_BOX
-    );
+	@Inject(method = "addDefaults", at = @At("TAIL"))
+	private static void addNetheriteShulkerBoxes(BuiltInBlockModels.Builder builder, CallbackInfo ci) {
+		// For default shulker
+		builder.put(
+			BuiltInBlockModels.specialModelWithPropertyDispatch(
+				ShulkerBoxBlock.FACING,
+				facing -> modSpecial(
+					new NetheriteShulkerBoxSpecialRenderer.Unbaked(),
+					NetheriteShulkerBoxRenderer.modelTransform(facing)
+				)
+			),
+			ModBlocks.NETHERITE_SHULKER_BOX
+		);
 
-    // For colors
-    for (DyeColor color : DyeColor.values()) {
-      builder.put(
-        BuiltInBlockModels.specialModelWithPropertyDispatch(
-          ShulkerBoxBlock.FACING,
-          facing -> modSpecial(
-            new NetheriteShulkerBoxSpecialRenderer.Unbaked(color),
-            NetheriteShulkerBoxRenderer.modelTransform(facing)
-          )
-        ),
-        NetheriteShulkerBoxBlock.getBlockByColor(color)
-      );
-    }
-  }
+		// For colors
+		for (DyeColor color : DyeColor.values()) {
+			builder.put(
+				BuiltInBlockModels.specialModelWithPropertyDispatch(
+					ShulkerBoxBlock.FACING,
+					facing -> modSpecial(
+						new NetheriteShulkerBoxSpecialRenderer.Unbaked(color),
+						NetheriteShulkerBoxRenderer.modelTransform(facing)
+					)
+				),
+				NetheriteShulkerBoxBlock.getBlockByColor(color)
+			);
+		}
+	}
 
-  private static BlockModel.Unbaked modSpecial(
-    final SpecialModelRenderer.Unbaked<?> model,
-    final Transformation transformation
-  ) {
-    return new SpecialBlockModelWrapper.Unbaked<>(model, Optional.of(transformation));
-  }
+	private static BlockModel.Unbaked modSpecial(
+		final SpecialModelRenderer.Unbaked<?> model,
+		final Transformation transformation
+	) {
+		return new SpecialBlockModelWrapper.Unbaked<>(model, Optional.of(transformation));
+	}
 }
