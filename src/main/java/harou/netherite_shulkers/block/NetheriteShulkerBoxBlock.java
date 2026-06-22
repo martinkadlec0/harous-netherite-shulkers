@@ -37,6 +37,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -84,13 +85,13 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 		return InteractionResult.SUCCESS;
 	}
 
-	private static boolean canOpen(BlockState state, Level level, BlockPos blockPos, NetheriteShulkerBoxBlockEntity entity) {
+	private static boolean canOpen(BlockState state, Level level, BlockPos pos, NetheriteShulkerBoxBlockEntity entity) {
 		if (entity.getAnimationStatus() != AnimationStatus.CLOSED) {
 			return true;
-		} else {
-			AABB box = Shulker.getProgressDeltaAabb(1.0F, state.getValue(FACING), 0.0F, 0.5F, blockPos.getBottomCenter()).deflate(1.0E-6);
-			return level.noCollision(box);
 		}
+
+		AABB lidOpenBoundingBox = Shulker.getProgressDeltaAabb(1.0F, state.getValue(FACING), 0.0F, 0.5F, Vec3.atBottomCenterOf(pos)).deflate(1.0E-6);
+		return level.noCollision(lidOpenBoundingBox);
 	}
 
 	@Override
@@ -140,28 +141,7 @@ public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
 	}
 
 	public static Block getBlockByColor(@Nullable DyeColor dyeColor) {
-		if (dyeColor == null) {
-			return ModBlocks.NETHERITE_SHULKER_BOX;
-		} else {
-			return switch (dyeColor) {
-				case WHITE -> ModBlocks.WHITE_NETHERITE_SHULKER_BOX;
-				case ORANGE -> ModBlocks.ORANGE_NETHERITE_SHULKER_BOX;
-				case MAGENTA -> ModBlocks.MAGENTA_NETHERITE_SHULKER_BOX;
-				case LIGHT_BLUE -> ModBlocks.LIGHT_BLUE_NETHERITE_SHULKER_BOX;
-				case YELLOW -> ModBlocks.YELLOW_NETHERITE_SHULKER_BOX;
-				case LIME -> ModBlocks.LIME_NETHERITE_SHULKER_BOX;
-				case PINK -> ModBlocks.PINK_NETHERITE_SHULKER_BOX;
-				case GRAY -> ModBlocks.GRAY_NETHERITE_SHULKER_BOX;
-				case LIGHT_GRAY -> ModBlocks.LIGHT_GRAY_NETHERITE_SHULKER_BOX;
-				case CYAN -> ModBlocks.CYAN_NETHERITE_SHULKER_BOX;
-				case BLUE -> ModBlocks.BLUE_NETHERITE_SHULKER_BOX;
-				case BROWN -> ModBlocks.BROWN_NETHERITE_SHULKER_BOX;
-				case GREEN -> ModBlocks.GREEN_NETHERITE_SHULKER_BOX;
-				case RED -> ModBlocks.RED_NETHERITE_SHULKER_BOX;
-				case BLACK -> ModBlocks.BLACK_NETHERITE_SHULKER_BOX;
-				case PURPLE -> ModBlocks.PURPLE_NETHERITE_SHULKER_BOX;
-			};
-		}
+		return dyeColor == null ? ModBlocks.NETHERITE_SHULKER_BOX : ModBlocks.DYED_NETHERITE_SHULKER_BOX.pick(dyeColor);
 	}
 
 	public static ItemStack getColoredItemStack(@Nullable DyeColor color) {

@@ -1,13 +1,15 @@
 package harou.netherite_shulkers.data;
 
 import harou.netherite_shulkers.HarousNetheriteShulkers;
-import harou.netherite_shulkers.block.ModBlocks;
-import harou.netherite_shulkers.block.NetheriteShulkerBoxBlock;
+import harou.netherite_shulkers.block.ModBlockItemIds;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.references.BlockItemId;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagGenerator extends FabricTagsProvider.BlockTagsProvider {
@@ -18,21 +20,21 @@ public class BlockTagGenerator extends FabricTagsProvider.BlockTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
 		HarousNetheriteShulkers.LOGGER.info("Generating block tags for Netherite Shulker Boxes...");
-		
+
 		// Add all netherite shulker boxes to the shulker_boxes & mineable/pickaxe tags
-		var pickaxeMineable = valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE);
-		var shulkerBoxes = valueLookupBuilder(BlockTags.SHULKER_BOXES);
-		
+		var pickaxeMineable = builder(BlockTags.MINEABLE_WITH_PICKAXE);
+		var shulkerBoxes = builder(BlockTags.SHULKER_BOXES);
+
 		// Add base netherite shulker box (no color)
-		pickaxeMineable.add(ModBlocks.NETHERITE_SHULKER_BOX);
-		shulkerBoxes.add(ModBlocks.NETHERITE_SHULKER_BOX);
-		
+		pickaxeMineable.add(ModBlockItemIds.NETHERITE_SHULKER_BOX.block());
+		shulkerBoxes.add(ModBlockItemIds.NETHERITE_SHULKER_BOX.block());
+
 		// Add all colored variants
-		for (DyeColor color : DyeColor.values()) {
-			pickaxeMineable.add(NetheriteShulkerBoxBlock.getBlockByColor(color));
-			shulkerBoxes.add(NetheriteShulkerBoxBlock.getBlockByColor(color));
-		}
-		
+		List<ResourceKey<Block>> dyedIds = ModBlockItemIds.DYED_NETHERITE_SHULKER_BOX
+			.asList().stream().map(BlockItemId::block).toList();
+		pickaxeMineable.addAll(dyedIds);
+		shulkerBoxes.addAll(dyedIds);
+
 		HarousNetheriteShulkers.LOGGER.info("Block tags generated successfully!");
 	}
 } 

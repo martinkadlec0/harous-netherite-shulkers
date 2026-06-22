@@ -59,8 +59,8 @@ dependencies {
 	implementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 
 	// Easy Shulker Boxes
-	// api "fuzs.puzzleslib:puzzleslib-fabric:${project.puzzleslib_version}"
-	// api "fuzs.iteminteractions:iteminteractions-fabric:${project.iteminteractions_version}"
+	api "fuzs.puzzleslib:puzzleslib-fabric:${project.puzzleslib_version}"
+	api "fuzs.iteminteractions:iteminteractions-fabric:${project.iteminteractions_version}"
 }
 
 processResources {

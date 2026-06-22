@@ -7,27 +7,10 @@ import harou.netherite_shulkers.HarousNetheriteShulkers;
 import harou.netherite_shulkers.item.ModItems;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import java.util.stream.Stream;
 
 public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
-	static Item[] ITEMS = {
-		ModItems.NETHERITE_SHULKER_BOX,
-		ModItems.WHITE_NETHERITE_SHULKER_BOX,
-		ModItems.ORANGE_NETHERITE_SHULKER_BOX,
-		ModItems.MAGENTA_NETHERITE_SHULKER_BOX,
-		ModItems.LIGHT_BLUE_NETHERITE_SHULKER_BOX,
-		ModItems.YELLOW_NETHERITE_SHULKER_BOX,
-		ModItems.LIME_NETHERITE_SHULKER_BOX,
-		ModItems.PINK_NETHERITE_SHULKER_BOX,
-		ModItems.GRAY_NETHERITE_SHULKER_BOX,
-		ModItems.LIGHT_GRAY_NETHERITE_SHULKER_BOX,
-		ModItems.CYAN_NETHERITE_SHULKER_BOX,
-		ModItems.PURPLE_NETHERITE_SHULKER_BOX,
-		ModItems.BLUE_NETHERITE_SHULKER_BOX,
-		ModItems.BROWN_NETHERITE_SHULKER_BOX,
-		ModItems.GREEN_NETHERITE_SHULKER_BOX,
-		ModItems.RED_NETHERITE_SHULKER_BOX,
-		ModItems.BLACK_NETHERITE_SHULKER_BOX
-	};
+	static Item[] ITEMS = Stream.concat(Stream.of(ModItems.NETHERITE_SHULKER_BOX), ModItems.DYED_NETHERITE_SHULKER_BOX.asList().stream()).toArray(Item[]::new);
 
 	@Override
 	public void registerProviders(PreviewProviderRegistry registry) { 

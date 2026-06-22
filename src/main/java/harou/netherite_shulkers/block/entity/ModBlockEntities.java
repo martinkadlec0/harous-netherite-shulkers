@@ -27,24 +27,8 @@ public class ModBlockEntities {
 				}
 				return new NetheriteShulkerBoxBlockEntity(color, pos, state);
 			},
-			ModBlocks.NETHERITE_SHULKER_BOX,
-			ModBlocks.WHITE_NETHERITE_SHULKER_BOX,
-			ModBlocks.ORANGE_NETHERITE_SHULKER_BOX,
-			ModBlocks.MAGENTA_NETHERITE_SHULKER_BOX,
-			ModBlocks.LIGHT_BLUE_NETHERITE_SHULKER_BOX,
-			ModBlocks.YELLOW_NETHERITE_SHULKER_BOX,
-			ModBlocks.LIME_NETHERITE_SHULKER_BOX,
-			ModBlocks.PINK_NETHERITE_SHULKER_BOX,
-			ModBlocks.GRAY_NETHERITE_SHULKER_BOX,
-			ModBlocks.LIGHT_GRAY_NETHERITE_SHULKER_BOX,
-			ModBlocks.CYAN_NETHERITE_SHULKER_BOX,
-			ModBlocks.PURPLE_NETHERITE_SHULKER_BOX,
-			ModBlocks.BLUE_NETHERITE_SHULKER_BOX,
-			ModBlocks.BROWN_NETHERITE_SHULKER_BOX,
-			ModBlocks.GREEN_NETHERITE_SHULKER_BOX,
-			ModBlocks.RED_NETHERITE_SHULKER_BOX,
-			ModBlocks.BLACK_NETHERITE_SHULKER_BOX
-		).build()
+			ModBlocks.NETHERITE_SHULKER_BOX
+		).addBlocks(ModBlocks.DYED_NETHERITE_SHULKER_BOX.asList()).build()
 	);
 
 	public static BlockEntityType<NetheriteShulkerBoxBlockEntity> register(ResourceKey<BlockEntityType<?>> key, BlockEntityType<NetheriteShulkerBoxBlockEntity> blockEntityType) {

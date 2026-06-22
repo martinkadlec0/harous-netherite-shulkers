@@ -34,7 +34,7 @@ public class HarousNetheriteShulkers implements ModInitializer {
 		// Add Netherite Shulker Boxes to the creative inventory tab after vanilla shulker boxes
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(output -> {
 			// Insert undyed netherite shulker box after all vanilla shulker boxes
-			output.insertAfter(Blocks.PINK_SHULKER_BOX.asItem(),
+			output.insertAfter(Blocks.DYED_SHULKER_BOX.pink().asItem(),
 				ModItems.NETHERITE_SHULKER_BOX
 			);
 			// Add colored variants after the undyed netherite shulker box in correct order

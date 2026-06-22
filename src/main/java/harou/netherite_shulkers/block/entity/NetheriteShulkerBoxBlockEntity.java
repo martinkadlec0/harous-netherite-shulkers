@@ -115,7 +115,7 @@ public class NetheriteShulkerBoxBlockEntity extends RandomizableContainerBlockEn
 	private void moveCollidedEntities(Level world, BlockPos pos, BlockState blockState) {
 		if (blockState.getBlock() instanceof NetheriteShulkerBoxBlock) {
 			Direction direction = blockState.getValue(NetheriteShulkerBoxBlock.FACING);
-			AABB aABB = Shulker.getProgressDeltaAabb(1.0F, direction, this.progressOld, this.progress, pos.getBottomCenter());
+			AABB aABB = Shulker.getProgressDeltaAabb(1.0F, direction, this.progressOld, this.progress, Vec3.atBottomCenterOf(pos));
 			List<Entity> list = world.getEntities(null, aABB);
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {

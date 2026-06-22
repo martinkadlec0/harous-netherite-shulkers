@@ -13,7 +13,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import harou.netherite_shulkers.util.DyeHelper;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeGenerator extends FabricRecipeProvider {
@@ -33,7 +32,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
 				// Generate colored netherite shulker box recipes
 				for (DyeColor color : DyeColor.values()) {
-					netheriteSmithing(getVanillaShulkerBox(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
+					netheriteSmithing(Items.DYED_SHULKER_BOX.pick(color), RecipeCategory.MISC, NetheriteShulkerBoxItem.get(color));
 				}
 				
 				// Generate color conversion recipes for netherite shulker boxes using crafting_transmute
@@ -44,7 +43,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
 					TransmuteRecipeBuilder.transmute(
 						RecipeCategory.DECORATIONS,
 						ingredient,
-						Ingredient.of(DyeHelper.getItemByColor(dyeColor)),
+						Ingredient.of(Items.DYE.pick(dyeColor)),
 						targetShulker.asItem()
 					)
 					.group("netherite_shulker_box_dye")
@@ -54,27 +53,6 @@ public class RecipeGenerator extends FabricRecipeProvider {
 				
 				HarousNetheriteShulkers.LOGGER.info("Netherite Shulker Box recipes generated successfully!");
 			}
-		};
-	}
-
-	private static Item getVanillaShulkerBox(DyeColor color) {
-		return switch (color) {
-			case WHITE -> Items.WHITE_SHULKER_BOX;
-			case ORANGE -> Items.ORANGE_SHULKER_BOX;
-			case MAGENTA -> Items.MAGENTA_SHULKER_BOX;
-			case LIGHT_BLUE -> Items.LIGHT_BLUE_SHULKER_BOX;
-			case YELLOW -> Items.YELLOW_SHULKER_BOX;
-			case LIME -> Items.LIME_SHULKER_BOX;
-			case PINK -> Items.PINK_SHULKER_BOX;
-			case GRAY -> Items.GRAY_SHULKER_BOX;
-			case LIGHT_GRAY -> Items.LIGHT_GRAY_SHULKER_BOX;
-			case CYAN -> Items.CYAN_SHULKER_BOX;
-			case PURPLE -> Items.PURPLE_SHULKER_BOX;
-			case BLUE -> Items.BLUE_SHULKER_BOX;
-			case BROWN -> Items.BROWN_SHULKER_BOX;
-			case GREEN -> Items.GREEN_SHULKER_BOX;
-			case RED -> Items.RED_SHULKER_BOX;
-			case BLACK -> Items.BLACK_SHULKER_BOX;
 		};
 	}
 	

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_transmute",
-  "category": "misc",
   "group": "netherite_shulker_box_dye",
   "input": "#harous-netherite-shulkers:netherite_shulker_boxes",
   "material": "minecraft:lime_dye",
