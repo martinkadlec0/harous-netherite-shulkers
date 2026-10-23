@@ -119,7 +119,7 @@ public class NetheriteShulkerBoxBlockEntity extends RandomizableContainerBlockEn
 			List<Entity> list = world.getEntities(null, aABB);
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
-					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
+					if (entity.getPistonPushReaction() != PushReaction.IGNORE_ENTITY) {
 						entity.move(
 							MoverType.SHULKER_BOX,
 							new Vec3(

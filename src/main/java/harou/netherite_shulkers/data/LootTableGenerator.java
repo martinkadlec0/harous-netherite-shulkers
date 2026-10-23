@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import java.util.concurrent.CompletableFuture;
 
 public class LootTableGenerator extends FabricBlockLootSubProvider {
@@ -35,7 +35,7 @@ public class LootTableGenerator extends FabricBlockLootSubProvider {
 	private LootTable.Builder createNetheriteShulkerBoxDrop(Block block) {
 		return LootTable.lootTable()
 			.withPool(LootPool.lootPool()
-				.setRolls(ConstantValue.exactly(1))
+				.setRolls(ContextIntProviders.exactly(1))
 				.add(LootItem.lootTableItem(block)
 					.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 						.include(DataComponents.CONTAINER)

@@ -5,14 +5,16 @@ import harou.netherite_shulkers.item.ModItems;
 import harou.netherite_shulkers.item.NetheriteShulkerBoxItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.TransmuteRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeGenerator extends FabricRecipeProvider {
@@ -21,8 +23,8 @@ public class RecipeGenerator extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
-		return new net.minecraft.data.recipes.RecipeProvider(registryLookup, exporter) {
+	protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+		return new net.minecraft.data.recipes.RecipeProvider(recipes, advancements) {
 			@Override
 			public void buildRecipes() {
 				HarousNetheriteShulkers.LOGGER.info("Generating Netherite Shulker Box recipes...");

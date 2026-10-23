@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "harous-netherite-shulkers:yellow_netherite_shulker_box_smithing"
+        "recipes": "harous-netherite-shulkers:yellow_netherite_shulker_box_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

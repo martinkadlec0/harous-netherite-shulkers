@@ -1,16 +1,12 @@
 package harou.netherite_shulkers.block;
 
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import harou.netherite_shulkers.block.entity.ModBlockEntities;
 import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntity;
 import harou.netherite_shulkers.block.entity.NetheriteShulkerBoxBlockEntity.AnimationStatus;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -44,19 +40,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class NetheriteShulkerBoxBlock extends ShulkerBoxBlock {
-	public static MapCodec<ShulkerBoxBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(DyeColor.CODEC.optionalFieldOf("color").forGetter(block -> Optional.ofNullable(block.color)), propertiesCodec())
-			.apply(instance, (color, settings) -> new NetheriteShulkerBoxBlock((DyeColor)color.orElse(null), settings))
-	);
 	public static final Map<Direction, VoxelShape> SHAPES_OPEN_SUPPORT = Shapes.rotateAll(Block.boxZ(16.0, 0.0, 1.0));
 	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 	public static final Identifier CONTENTS = Identifier.withDefaultNamespace("contents");
 	
-	@Override
-	public MapCodec<ShulkerBoxBlock> codec() {
-		return NetheriteShulkerBoxBlock.CODEC;
-	}
-
 	public NetheriteShulkerBoxBlock(@Nullable DyeColor color, Properties settings) {
 		super(color, settings);
 	}

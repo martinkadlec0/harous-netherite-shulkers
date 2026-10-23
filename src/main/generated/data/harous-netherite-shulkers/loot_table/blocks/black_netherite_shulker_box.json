@@ -5,22 +5,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:copy_components",
-              "include": [
-                "minecraft:container",
-                "minecraft:container_loot",
-                "minecraft:custom_name",
-                "minecraft:lock"
-              ],
-              "source": "block_entity"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:copy_components",
+            "include": [
+              "minecraft:container",
+              "minecraft:container_loot",
+              "minecraft:custom_name",
+              "minecraft:lock"
+            ],
+            "source": "block_entity"
+          },
           "name": "harous-netherite-shulkers:black_netherite_shulker_box"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "harous-netherite-shulkers:gray_netherite_shulker_box"
+        "recipes": "harous-netherite-shulkers:gray_netherite_shulker_box"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

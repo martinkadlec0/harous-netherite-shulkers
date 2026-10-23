@@ -38,8 +38,7 @@ public class ModBlocks {
 			.dynamicShape()
 			.noOcclusion()
 			.isSuffocating(SHULKER_BOX_SUFFOCATES_PREDICATE)
-			.isViewBlocking(SHULKER_BOX_SUFFOCATES_PREDICATE)
-			.pushReaction(PushReaction.DESTROY);
+			.pushReaction(PushReaction.POPPED);
 	}
 
 	public static Block register(ResourceKey<Block> key, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
